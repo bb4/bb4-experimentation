@@ -1,0 +1,21 @@
+description = 'Some experimental apps'
+group = 'com.barrybecker4'
+version = '1.0-SNAPSHOT'
+
+apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
+
+project.archivesBaseName = 'bb4-experimentation'
+mainClassName = 'com.barrybecker4.experimentation.gcf.GCFProgram'
+
+jar {
+    archiveName = "${archivesBaseName}-${version}.jar"
+    manifest {
+        attributes 'Implementation-Title': 'Experimentation search code',
+                'Implementation-Version': version,
+                'provider': 'gradle',
+                'Main-Class': mainClassName
+    }
+}
+
+// This allows publishing of the A-star library to Sonatype
+apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4-publish.gradle'
