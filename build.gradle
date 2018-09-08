@@ -5,7 +5,7 @@ version = '1.0-SNAPSHOT'
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
 
 project.archivesBaseName = 'bb4-experimentation'
-mainClassName = 'com.barrybecker4.experimentation.gcf.GCFProgram'
+mainClassName = 'com.barrybecker4.experimentation.gcf.GcfProgram'
 
 jar {
     archiveName = "${archivesBaseName}-${version}.jar"

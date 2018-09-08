@@ -5,9 +5,9 @@ package com.barrybecker4.experimentation.gcf
   * Compare two different ways to find the Greatest common factor of two numbers.
   * @author Barry Becker
   */
-object GCFProgram {
-  private val bruteSolver = new BruteGCFSolver
-  private val euclidSolver = new EuclidGCFSolver
+object GcfProgram {
+  private val bruteSolver = new BruteGcfSolver
+  private val euclidSolver = new EuclidGcfSolver
 
   def main(args: Array[String]): Unit = {
     // these will take about 15s for the brute force approach.
@@ -20,7 +20,7 @@ object GCFProgram {
     showResult(a, b, bruteSolver)
   }
 
-  private def showResult(a: Long, b: Long, solver: GCFSolver): Unit = {
+  private def showResult(a: Long, b: Long, solver: GcfSolver): Unit = {
     System.out.println("finding answer using " + solver.getClass.getName + " ... ")
     val time = System.currentTimeMillis
     val answer = solver.findSolution(a, b)

@@ -6,7 +6,7 @@ package com.barrybecker4.experimentation.gcf
   * This is <i>much</i> slower than Euclid's algorithm
   * @author Barry Becker
   */
-final class BruteGCFSolver extends GCFSolver {
+final class BruteGcfSolver extends GcfSolver {
   override def findSolution(a: Long, b: Long): Long = {
     var aa = a
     var bb = b
