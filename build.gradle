@@ -5,12 +5,30 @@ version = '1.0-SNAPSHOT'
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
 
 project.archivesBaseName = 'bb4-experimentation'
-mainClassName = 'com.barrybecker4.experimentation.gcf.GcfProgram'
+mainClassName = 'com.barrybecker4.experimentation.axes.AxesSynch'
+
+
+task runGCF(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.gcf.GcfProgram'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runAxesSynch(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.axes.AxesSynch'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
+dependencies {
+    compile 'com.barrybecker4:bb4-ui:1.5-SNAPSHOT'
+}
 
 jar {
     archiveName = "${archivesBaseName}-${version}.jar"
     manifest {
-        attributes 'Implementation-Title': 'Experimentation search code',
+        attributes 'Implementation-Title': 'Experimental code',
                 'Implementation-Version': version,
                 'provider': 'gradle',
                 'Main-Class': mainClassName
