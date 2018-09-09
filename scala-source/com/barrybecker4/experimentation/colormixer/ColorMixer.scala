@@ -11,6 +11,7 @@ import java.awt._
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import java.util
+import ColorMixer.SLIDER_TICKS
 
 
 object ColorMixer {
@@ -23,15 +24,17 @@ object ColorMixer {
     colorButton
   }
 
-  //------ Main method --------------------------------------------------------
   def main(args: Array[String]): Unit = {
     val simulator = new ColorMixer
     GUIUtil.showApplet(simulator)
   }
 }
 
-class ColorMixer() // constructor
-  extends ApplicationApplet with ActionListener with ChangeListener {
+/**
+  * Demo to show all the different Porter/Duff rules for  colors mixing using Java2D API.
+  * @author Barry Becker
+  */
+class ColorMixer extends ApplicationApplet with ActionListener with ChangeListener {
   private var colorButtonA: JButton = _
   private var colorButtonB: JButton = _
   private val colorA = Color.WHITE
@@ -41,13 +44,14 @@ class ColorMixer() // constructor
 
   override def createMainPanel: JPanel = {
     mixedColorsPanel = new MixedColorsScrollPane(colorA, colorB)
-    //mixedColorsPanel.setPreferredSize(new Dimension(300, 500));
     mixedColorsPanel.setBorder(BorderFactory.createEtchedBorder)
     colorButtonA = ColorMixer.createColorButton(colorA)
     colorButtonB = ColorMixer.createColorButton(colorB)
     opacitySlider = createOpacitySlider
-    val colorPanelA = new ColorInputPanel("Select first color : ", "Select the first color to mix", colorButtonA, this)
-    val colorPanelB = new ColorInputPanel("Select second color : ", "Select the second color to mix", colorButtonB, this)
+    val colorPanelA = new ColorInputPanel("Select first color : ",
+      "Select the first color to mix", colorButtonA, this)
+    val colorPanelB = new ColorInputPanel("Select second color : ",
+      "Select the second color to mix", colorButtonB, this)
     val mainPanel = new JPanel
     mainPanel.setLayout(new BorderLayout)
     val controlsPanel = new JPanel
@@ -65,23 +69,21 @@ class ColorMixer() // constructor
   }
 
   private def createOpacitySlider = {
-    val opacitySlider = new JSlider(SwingConstants.HORIZONTAL, 0, ColorMixer.SLIDER_TICKS, ColorMixer.SLIDER_TICKS)
+    val initialSliderValue = (MixPanel.INITIAL_OPACITY * SLIDER_TICKS).toInt
+    val opacitySlider = new JSlider(SwingConstants.HORIZONTAL, 0, SLIDER_TICKS, initialSliderValue)
+    opacitySlider.setMajorTickSpacing(SLIDER_TICKS)
+    opacitySlider.setMinorTickSpacing(SLIDER_TICKS)
+    opacitySlider.setToolTipText("Control the opacity of the overlaid color")
     val dict = new util.Hashtable[Integer, JLabel]
     dict.put(0, new JLabel("0"))
     dict.put(ColorMixer.SLIDER_TICKS, new JLabel("1.0"))
     opacitySlider.setLabelTable(dict)
-    //opacitySlider.setMajorTickSpacing(100);
-    //opacitySlider.setMinorTickSpacing(10);
     opacitySlider.setPaintLabels(true)
-    //opacitySlider.setPaintTicks(true);
-    //opacitySlider.setPaintTrack(true);
     opacitySlider.addChangeListener(this)
     opacitySlider
   }
 
-  /**
-    * called when a button is pressed
-    */
+  /** Called when a button is pressed */
   override def actionPerformed(e: ActionEvent): Unit = {
     val source = e.getSource
     if ((source eq colorButtonA) || (source eq colorButtonB)) {
