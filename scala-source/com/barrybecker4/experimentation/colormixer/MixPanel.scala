@@ -11,15 +11,18 @@ import MixPanel._
   * @author Barry Becker
   */
 object MixPanel {
-  val INITIAL_OPACITY = 0.5f
+  val INITIAL_OPACITY_A = 1.0f
+  val INITIAL_OPACITY_B = 0.5f
   private val FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 16)
 }
 
-class MixPanel(var colorA: Color, var opacityA: Float, var colorB: Color, var opacityB: Float,
+class MixPanel(var colorA: Color, var colorB: Color,
                var rule: Int, var label: String, val tip: String) extends JPanel {
 
-  setColors(colorA, opacityA, colorB, opacityB)
-  private var opacity = INITIAL_OPACITY
+  private var opacityA: Float = _
+  private var opacityB: Float = _
+  setColors(colorA, INITIAL_OPACITY_A, colorB, INITIAL_OPACITY_B)
+
   setToolTipText(tip)
 
   def setColors(colorA: Color, opacityA: Float, colorB: Color, opacityB: Float): Unit = {
@@ -32,8 +35,11 @@ class MixPanel(var colorA: Color, var opacityA: Float, var colorB: Color, var op
     this.repaint()
   }
 
-  def setOpacity(op: Float): Unit = 
-    opacity = op
+  def setOpacityA(op: Float): Unit =
+    opacityA = op
+
+  def setOpacityB(op: Float): Unit =
+    opacityB = op
 
   override def paint(g: Graphics): Unit = paintComponent(g)
 
@@ -52,9 +58,10 @@ class MixPanel(var colorA: Color, var opacityA: Float, var colorB: Color, var op
   }
 
   private def drawColorSwatches(g2: Graphics2D, width: Int, height: Int): Unit = {
-    g2.setColor(colorA)
+    val aColor = new Color(colorA.getRed, colorA.getGreen, colorA.getBlue, (255 *opacityA).toInt)
+    g2.setColor(aColor)
     g2.fillRect(10, 1, width, height)
-    g2.setComposite(AlphaComposite.getInstance(rule, opacity))
+    g2.setComposite(AlphaComposite.getInstance(rule, opacityB))
     g2.setColor(colorB)
     g2.fillRect(40, 12, width, height)
   }
