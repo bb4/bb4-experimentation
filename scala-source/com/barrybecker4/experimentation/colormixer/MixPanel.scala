@@ -14,6 +14,9 @@ object MixPanel {
   val INITIAL_OPACITY_A = 1.0f
   val INITIAL_OPACITY_B = 0.5f
   private val FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 16)
+
+  private def getColorWithOp(c: Color, op: Float): Color =
+     new Color(c.getRed, c.getGreen, c.getBlue, (255 *op).toInt)
 }
 
 class MixPanel(var colorA: Color, var colorB: Color,
@@ -57,11 +60,13 @@ class MixPanel(var colorA: Color, var colorB: Color,
   }
 
   private def drawColorSwatches(g2: Graphics2D, width: Int, height: Int): Unit = {
-    val aColor = new Color(colorA.getRed, colorA.getGreen, colorA.getBlue, (255 *opacityA).toInt)
-    g2.setColor(aColor)
+
+    g2.setColor(getColorWithOp(colorA, opacityA))
     g2.fillRect(10, 1, width, height)
+
     g2.setComposite(AlphaComposite.getInstance(rule, opacityB))
-    g2.setColor(colorB)
+
+    g2.setColor(getColorWithOp(colorB, opacityB))
     g2.fillRect(40, 12, width, height)
   }
 

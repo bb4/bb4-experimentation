@@ -33,9 +33,11 @@ class ColorMixer extends ApplicationApplet with ActionListener with ChangeListen
   override def createMainPanel: JPanel = {
     mixedColorsPanel = new MixedColorsScrollPane(colorA, colorB)
     mixedColorsPanel.setBorder(BorderFactory.createEtchedBorder)
-    colorSelectorA = new ColorSelectorPanel("Select first color :       ", "Select the first color to mix (under/source)",
+    colorSelectorA = new ColorSelectorPanel("Select first color :       ",
+      "Select the first color to mix (under/source)",
       colorA, MixPanel.INITIAL_OPACITY_A, this, this)
-    colorSelectorB = new ColorSelectorPanel("Select second color : ", "Select the second color to mix (over/dest)",
+    colorSelectorB = new ColorSelectorPanel("Select second color : ",
+      "Select the second color to mix (over/dest)",
       colorB, MixPanel.INITIAL_OPACITY_B, this, this)
 
     val mainPanel = new JPanel

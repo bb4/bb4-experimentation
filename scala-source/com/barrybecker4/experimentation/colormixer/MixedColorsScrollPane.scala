@@ -16,7 +16,7 @@ class MixedColorsScrollPane(val colorA: Color, val colorB: Color) extends JPanel
   private[colormixer] var scrollPane =
     new JScrollPane(mainPanel, VERTICAL_SCROLLBAR_AS_NEEDED, HORIZONTAL_SCROLLBAR_AS_NEEDED)
 
-  private[colormixer] var mixPanels  = Array(
+  private val mixPanels = Array(
 
     new MixPanel(colorA, colorB, AlphaComposite.DST_ATOP,
       "Destination Atop Source",
