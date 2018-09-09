@@ -68,20 +68,13 @@ class MixedColorsScrollPane(val colorA: Color, val colorB: Color) extends JPanel
   })
   this.setLayout(new BorderLayout)
   this.add(scrollPane, BorderLayout.CENTER)
-  mainPanel.invalidate()
 
-  def setColorsToMix(colorA: Color, opacityA: Float, colorB: Color, opacityB: Float): Unit = {
+  def setColorsToMix(colorA: Color, opacityA: Float, colorB: Color, opacityB: Float): Unit =
     for (p <- mixPanels) p.setColors(colorA, opacityA, colorB, opacityB)
-    mainPanel.invalidate()
-  }
 
-  def setOpacityA(opacity: Float): Unit = {
+  def setOpacityA(opacity: Float): Unit =
     for (p <- mixPanels) p.setOpacityA(opacity)
-    mainPanel.invalidate()
-  }
 
-  def setOpacityB(opacity: Float): Unit = {
+  def setOpacityB(opacity: Float): Unit =
     for (p <- mixPanels) p.setOpacityB(opacity)
-    mainPanel.invalidate()
-  }
 }

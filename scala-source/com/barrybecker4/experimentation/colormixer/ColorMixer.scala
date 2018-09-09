@@ -63,7 +63,6 @@ class ColorMixer extends ApplicationApplet with ActionListener with ChangeListen
     val opA = colorSelectorA.getOpacity
     val opB = colorSelectorB.getOpacity
     mixedColorsPanel.setColorsToMix(colorSelectorA.getColor, opA, colorSelectorB.getColor, opB)
-    mixedColorsPanel.invalidate()
     resizablePanel.repaint()
   }
 

@@ -31,7 +31,6 @@ class MixPanel(var colorA: Color, var colorB: Color,
     this.opacityA = opacityA
     this.opacityB = opacityB
     this.setDoubleBuffered(false)
-    this.invalidate()
     this.repaint()
   }
 
