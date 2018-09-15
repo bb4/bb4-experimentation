@@ -2,8 +2,12 @@
 package com.barrybecker4.experimentation.colormixer
 
 import java.awt._
+import java.awt.geom.Rectangle2D
+import java.awt.image.BufferedImage
+
 import javax.swing._
 import SwatchPanel._
+import com.sun.javafx.geom.Ellipse2D
 
 
 object SwatchPanel {
@@ -46,16 +50,16 @@ class SwatchPanel(var colorA: Color, var colorB: Color, var rule: Int) extends J
     val g2 = g.asInstanceOf[Graphics2D]
 
     drawBackground(g2)
-    drawColorSwatches(g2, getWidth - 50, getHeight / 2 - 10)
+    drawColorSwatchesInImage(g2, getWidth - 50, getHeight / 2 - 10)
   }
 
   private def drawBackground(g2: Graphics2D): Unit = {
-    g2.setColor(this.getBackground)
-    g2.fillRect(1, 1, getWidth, getHeight)
+    g2.setColor(Color.WHITE)
+    g2.fillRect(1, 1, getWidth - 2, getHeight - 2)
   }
 
+  /** semi-accurate result */
   private def drawColorSwatches(g2: Graphics2D, width: Int, height: Int): Unit = {
-
     g2.setColor(getColorWithOp(colorA, opacityA))
     g2.fillRect(5, 10, width, height)
 
@@ -63,5 +67,31 @@ class SwatchPanel(var colorA: Color, var colorB: Color, var rule: Int) extends J
 
     g2.setColor(getColorWithOp(colorB, opacityB))
     g2.fillRect(35, 20, width, height)
+  }
+
+  /** Drawing in image produces much better results */
+  private def drawColorSwatchesInImage(g2: Graphics2D, width: Int, height: Int): Unit = {
+
+    val w = getWidth - 2
+    val h = getHeight - 2
+
+    // Creates the buffered image.
+    val buffImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB)
+    val gbi = buffImg.createGraphics
+
+    // Clears the previously drawn image.
+    g2.setColor(Color.WHITE)
+    g2.fillRect(1, 1, w, h)
+
+    gbi.setColor(getColorWithOp(colorA, opacityA))
+    gbi.fillRect(5, 10, width, height)
+
+    gbi.setComposite(AlphaComposite.getInstance(rule, opacityB))
+
+    gbi.setColor(getColorWithOp(colorB, opacityB))
+    gbi.fillRect(35, 20, width, height)
+
+    // Draws the buffered image.
+    g2.drawImage(buffImg, null, 0, 0)
   }
 }
