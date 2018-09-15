@@ -40,12 +40,12 @@ class MixPanel(var colorA: Color, var colorB: Color,
   descPanel.setMaximumSize(descDim)
   descPanel.setVerticalAlignment(SwingConstants.TOP)
 
-  setLayout(new BoxLayout(this, BoxLayout.X_AXIS)) //new BorderLayout())
+  setLayout(new BoxLayout(this, BoxLayout.X_AXIS))
   setToolTipText(tip)
 
-  add(titlePanel)//, BorderLayout.WEST)
-  add(swatchPanel)//, BorderLayout.CENTER)
-  add(descPanel)//, BorderLayout.EAST)
+  add(titlePanel)
+  add(swatchPanel)
+  add(descPanel)
 
   def setColors(colorA: Color, opacityA: Float, colorB: Color, opacityB: Float): Unit =
     swatchPanel.setColors(colorA, opacityA, colorB, opacityB)

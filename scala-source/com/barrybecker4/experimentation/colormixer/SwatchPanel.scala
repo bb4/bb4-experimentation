@@ -2,7 +2,6 @@
 package com.barrybecker4.experimentation.colormixer
 
 import java.awt._
-import com.barrybecker4.experimentation.colormixer.MixPanel._
 import javax.swing._
 import SwatchPanel._
 
