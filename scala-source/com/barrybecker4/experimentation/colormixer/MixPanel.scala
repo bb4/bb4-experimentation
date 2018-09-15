@@ -51,5 +51,5 @@ class MixPanel(var colorA: Color, var colorB: Color,
     swatchPanel.setColors(colorA, opacityA, colorB, opacityB)
 
   def setOpacityA(op: Float): Unit = swatchPanel.setOpacityA(op)
-  def setOpacityB(op: Float): Unit = swatchPanel.setOpacityA(op)
+  def setOpacityB(op: Float): Unit = swatchPanel.setOpacityB(op)
 }
