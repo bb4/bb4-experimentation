@@ -3,7 +3,9 @@ package com.barrybecker4.experimentation.colormixer
 
 import javax.swing._
 import java.awt._
+
 import ScrollPaneConstants._
+import javax.swing.border.MatteBorder
 
 
 /**

@@ -7,6 +7,7 @@ import com.barrybecker4.ui.components.ColorInputPanel
 import javax.swing.event.{ChangeEvent, ChangeListener}
 import javax.swing._
 import ColorSelectorPanel.SLIDER_TICKS
+import SwatchPanel.INITIAL_OPACITY_A
 
 
 object ColorSelectorPanel {
@@ -23,7 +24,7 @@ class ColorSelectorPanel(label: String, tooltip: String,
 
   private var colorButton: JButton = createColorButton(initialColor)
   private var opacitySlider: JSlider = createOpacitySlider
-  private var opacitySliderLabel: JLabel = new JLabel(s"Opacity (${MixPanel.INITIAL_OPACITY_A})")
+  private var opacitySliderLabel: JLabel = new JLabel(s"Opacity (${INITIAL_OPACITY_A})")
 
   val colorPanel = new ColorInputPanel(label, tooltip, colorButton, aListener)
 

@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener
 import java.awt._
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import SwatchPanel._
 
 
 object ColorMixer {
@@ -35,10 +36,10 @@ class ColorMixer extends ApplicationApplet with ActionListener with ChangeListen
     mixedColorsPanel.setBorder(BorderFactory.createEtchedBorder)
     colorSelectorA = new ColorSelectorPanel("Select first color :       ",
       "Select the first color to mix (under/source)",
-      colorA, MixPanel.INITIAL_OPACITY_A, this, this)
+      colorA, INITIAL_OPACITY_A, this, this)
     colorSelectorB = new ColorSelectorPanel("Select second color : ",
       "Select the second color to mix (over/dest)",
-      colorB, MixPanel.INITIAL_OPACITY_B, this, this)
+      colorB,INITIAL_OPACITY_B, this, this)
 
     val mainPanel = new JPanel
     mainPanel.setLayout(new BorderLayout)

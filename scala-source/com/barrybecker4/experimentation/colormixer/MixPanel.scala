@@ -7,73 +7,49 @@ import java.awt._
 import MixPanel._
 
 
-/**
-  * @author Barry Becker
-  */
 object MixPanel {
-  val INITIAL_OPACITY_A = 1.0f
-  val INITIAL_OPACITY_B = 0.5f
-  private val FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 16)
-
-  private def getColorWithOp(c: Color, op: Float): Color =
-     new Color(c.getRed, c.getGreen, c.getBlue, (255 *op).toInt)
+  private val HEIGHT = 60
+  private val TITLE_FONT = new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.BOLD, 16)
 }
 
+/**
+  * Shows the color mixer for a given rule along with title and description
+  * @author Barry Becker
+  */
 class MixPanel(var colorA: Color, var colorB: Color,
                var rule: Int, var label: String, val tip: String) extends JPanel {
 
-  private var opacityA: Float = _
-  private var opacityB: Float = _
-  setColors(colorA, INITIAL_OPACITY_A, colorB, INITIAL_OPACITY_B)
+  private val titlePanel = new JLabel("<html>" + label + "</html>")
+  titlePanel.setFont(TITLE_FONT)
+  titlePanel.setVerticalAlignment(SwingConstants.TOP)
 
+  val minDim = new Dimension(140, HEIGHT)
+  val dim = new Dimension(160, HEIGHT)
+  titlePanel.setMinimumSize(minDim)
+  titlePanel.setPreferredSize(dim)
+  titlePanel.setMaximumSize(dim)
+
+  private val swatchPanel: SwatchPanel = new SwatchPanel(colorA, colorB, rule)
+  swatchPanel.setMinimumSize(minDim)
+  swatchPanel.setPreferredSize(dim)
+
+  private val descPanel = new JLabel("<html>" + tip + "</html>")
+  val descDim = new Dimension(600, HEIGHT)
+  descPanel.setMinimumSize(minDim)
+  descPanel.setPreferredSize(descDim)
+  descPanel.setMaximumSize(descDim)
+  descPanel.setVerticalAlignment(SwingConstants.TOP)
+
+  setLayout(new BoxLayout(this, BoxLayout.X_AXIS)) //new BorderLayout())
   setToolTipText(tip)
 
-  def setColors(colorA: Color, opacityA: Float, colorB: Color, opacityB: Float): Unit = {
-    this.colorA = colorA
-    this.colorB = colorB
-    this.opacityA = opacityA
-    this.opacityB = opacityB
-    this.setDoubleBuffered(false)
-    this.repaint()
-  }
+  add(titlePanel)//, BorderLayout.WEST)
+  add(swatchPanel)//, BorderLayout.CENTER)
+  add(descPanel)//, BorderLayout.EAST)
 
-  def setOpacityA(op: Float): Unit =
-    opacityA = op
+  def setColors(colorA: Color, opacityA: Float, colorB: Color, opacityB: Float): Unit =
+    swatchPanel.setColors(colorA, opacityA, colorB, opacityB)
 
-  def setOpacityB(op: Float): Unit =
-    opacityB = op
-
-  override def paint(g: Graphics): Unit = paintComponent(g)
-
-  override protected def paintComponent(g: Graphics): Unit = {
-    super.paintComponents(g)
-    val g2 = g.asInstanceOf[Graphics2D]
-
-    drawBackground(g2)
-    drawColorSwatches(g2, 100, 30)
-    drawLabel(g2)
-  }
-
-  private def drawBackground(g2: Graphics2D): Unit = {
-    g2.setColor(this.getBackground)
-    g2.fillRect(1, 1, this.getWidth, this.getHeight)
-  }
-
-  private def drawColorSwatches(g2: Graphics2D, width: Int, height: Int): Unit = {
-
-    g2.setColor(getColorWithOp(colorA, opacityA))
-    g2.fillRect(10, 1, width, height)
-
-    g2.setComposite(AlphaComposite.getInstance(rule, opacityB))
-
-    g2.setColor(getColorWithOp(colorB, opacityB))
-    g2.fillRect(40, 12, width, height)
-  }
-
-  private def drawLabel(g2: Graphics2D): Unit = {
-    g2.setComposite(AlphaComposite.Src)
-    g2.setFont(FONT)
-    g2.setColor(Color.BLACK)
-    g2.drawString(label, 160, 20)
-  }
+  def setOpacityA(op: Float): Unit = swatchPanel.setOpacityA(op)
+  def setOpacityB(op: Float): Unit = swatchPanel.setOpacityA(op)
 }
