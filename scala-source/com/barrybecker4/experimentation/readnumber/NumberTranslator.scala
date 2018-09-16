@@ -14,7 +14,7 @@ object NumberTranslator {
   /** biggest number we will allow (vigintillion) */
   private val BIGGEST = new BigInteger("999999999999999999999999999999999999999999999999999999999999999")
 
-  /** British uses and as in one hundred and 15, instead of one hundred 15.    */
+  /** British uses "and "as in "one hundred and 15", instead of "one hundred 15".    */
   object Type extends Enumeration {
     type Type = Value
     val ENGLISH, BRITISH, PHONETIC = Value
@@ -27,7 +27,6 @@ class NumberTranslator() {
     * @return the number written out long hand.
     */
   def translateToEnglish(number: BigInteger): String = translateNumber(number, NumberTranslator.Type.ENGLISH)
-
   def translateToBritish(number: BigInteger): String = translateNumber(number, NumberTranslator.Type.BRITISH)
 
   /** @param number number to translate phonetically.
@@ -40,14 +39,11 @@ class NumberTranslator() {
     */
   private def translateNumber(number: BigInteger, theType: NumberTranslator.Type.Type): String = {
 
-    if (number.compareTo(NumberTranslator.BIGGEST) > 0) theType match {
-      case ENGLISH =>
-        return "I give up. That number is too big even for me."
-      case BRITISH =>
-        return "I give up. That number is too big even for me."
-      case PHONETIC =>
-        return "ii g|i|v u|p|. th|a|t n|u|m|b|e|r i|s t|uu b|i|g| ee|v|e|n f|o|r m|ee|."
-    }
+    if (number.compareTo(NumberTranslator.BIGGEST) > 0)
+      return theType match {
+        case ENGLISH | BRITISH => "I give up. That number is too big even for me."
+        case PHONETIC => "ii g|i|v u|p|. th|a|t n|u|m|b|e|r i|s t|uu b|i|g| ee|v|e|n f|o|r m|ee|."
+      }
 
     var result = getTextForGroup(number.mod(NumberTranslator.ONE_THOUSAND).intValue, theType)
     var n = number.divide(NumberTranslator.ONE_THOUSAND)
@@ -58,7 +54,8 @@ class NumberTranslator() {
         val res = result
         val grouping = translate(GroupNumber.values(group), theType)
         result = getTextForGroup(groupVal, theType) + ' ' + grouping
-        if (!("" == res)) result += (if ((theType eq NumberTranslator.Type.ENGLISH) || (theType eq NumberTranslator.Type.BRITISH)) ",\n"
+        if (!("" == res))
+          result += (if ((theType eq NumberTranslator.Type.ENGLISH) || (theType eq NumberTranslator.Type.BRITISH)) ",\n"
         else "|, ") + res
       }
       n = n.divide(NumberTranslator.ONE_THOUSAND)
@@ -66,7 +63,6 @@ class NumberTranslator() {
     }
     result
   }
-
 
   private def getTextForGroup(number: Int, theType: NumberTranslator.Type.Type): String = {
     assert(number >= 0 && number < 1000)
@@ -97,8 +93,7 @@ class NumberTranslator() {
 
   private def translate(number: NumberEnum, theType: NumberTranslator.Type.Type) = {
     theType match {
-      case ENGLISH => number.toString
-      case BRITISH => number.toString
+      case ENGLISH | BRITISH => number.toString
       case PHONETIC => number.pronunciation
     }
   }

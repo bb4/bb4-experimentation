@@ -6,15 +6,13 @@ package com.barrybecker4.experimentation.readnumber
   * a VIGINTILLION, for example, is pow(10, 63).
   * @author Barry Becker
   */
-
 object GroupNumber {
-  val values = Array(THOUSAND, MILLION, BILLION, TRILLION, QUADRILLION,
+  val values = Array[NumberEnum](THOUSAND, MILLION, BILLION, TRILLION, QUADRILLION,
     PENTILLION, SEXTILLION, SEPTILLION, OCTILLION, NONILLION, DECILLION, UNDECILLION, DUODECILLION,
   TREDECILLION, QUATTUORDECILLION, QUINDECILLION, SEPTENDECILLION, OCTODECILLION, NOVEMDECILLION, VIGINTILLION)
 
   def toEnum(theName: String): NumberEnum = GroupNumber.values.find(_.label == theName).get
 }
-
 
 case object THOUSAND extends NumberEnum("thousand", "th|o|w|s|a|n|d")
 case object MILLION extends NumberEnum("million", "m|i|ll|y|o|n")

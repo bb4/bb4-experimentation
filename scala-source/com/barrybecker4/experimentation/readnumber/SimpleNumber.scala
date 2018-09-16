@@ -2,7 +2,7 @@
 package com.barrybecker4.experimentation.readnumber
 
 object SimpleNumber {
-  val values = Array(
+  val values = Array[NumberEnum](
     ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, ELEVEN,
     TWELVE, THIRTEEN, FOURTEEN, FIFTEEN, SIXTEEN, SEVENTEEN, EIGHTEEN, NINETEEN
   )
