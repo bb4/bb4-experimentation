@@ -2,9 +2,7 @@
 package com.barrybecker4.experimentation.readnumber
 
 object TensNumber {
-  val values = Array(
-    TWENTY, THIRTY, FOURTY, FIFTY, SIXTY, SEVENTY, EIGHTY, NINETY
-  )
+  val values = Array(TWENTY, THIRTY, FOURTY, FIFTY, SIXTY, SEVENTY, EIGHTY, NINETY)
 
   def toEnum(theName: String): NumberEnum = TensNumber.values.find(_.label == theName).get
 }
