@@ -37,7 +37,7 @@ class RecursivePrimeFactorizer extends PrimeFactorizer {
     * @param num number to square root
     * @return the largest x such that x squared is <= num
     */
-  protected def findIntegerSquareRoot(num: BigInteger): BigInteger = {
+  def findIntegerSquareRoot(num: BigInteger): BigInteger = {
     // throw out the last len/2 - 1 digits and use the result as our initial guess.
     val origNum: BigDecimal = new BigDecimal(num)
     val numStr: String = num.toString
