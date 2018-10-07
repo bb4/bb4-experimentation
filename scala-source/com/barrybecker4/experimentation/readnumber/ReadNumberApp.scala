@@ -41,6 +41,7 @@ object ReadNumberApp extends App {
   println("Enter numbers to speak and write long hand (or Q to quit)")
   // This works for arbitrary strings, but is not as nice sounding as the pre-generated wav file.
   speech.sayText(GREETING)
+
   val scanner = new Scanner(System.in)
   var done = false
   while (!done) {
@@ -54,7 +55,6 @@ object ReadNumberApp extends App {
     } catch {
       case e: NumberFormatException =>
         println("That was not a valid number.")
-      case _ => println("unknown error")
     }
   }
 }

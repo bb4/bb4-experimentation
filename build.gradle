@@ -20,6 +20,11 @@ task runAxesSynch(type: JavaExec, dependsOn: classes) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+task runReadNumber(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.readnumber.ReadNumberApp'
+    classpath = sourceSets.main.runtimeClasspath
+}
 
 dependencies {
     compile 'com.barrybecker4:bb4-ui:1.5-SNAPSHOT'
