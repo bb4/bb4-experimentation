@@ -15,7 +15,8 @@ import javax.swing._
   */
 object ClientFrame extends App {
   private val DEFAULT_HOST = "127.0.0.1" /// "192.168.1.100";
-  new ClientFrame("Client Program", DEFAULT_HOST, Server.PORT)
+  private val PORT = 4444
+  new ClientFrame("Client Program", DEFAULT_HOST, PORT)
 }
 
 class ClientFrame(title: String, host: String, port: Int) extends JFrame with ActionListener {
@@ -58,7 +59,7 @@ class ClientFrame(title: String, host: String, port: Int) extends JFrame with Ac
       client.send(textField.getText)
       textField.setText("")
 
-      println("Text received:" + client.receive())
+      println("Text received from server: [ " + client.receive() + " ]")
     }
   }
 }
