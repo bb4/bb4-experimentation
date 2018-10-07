@@ -1,15 +1,8 @@
 /** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.experimentation.socket
+package com.barrybecker4.experimentation.socket.client
 
-import javax.swing._
-import java.awt._
-import java.awt.event._
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.io.PrintWriter
-import java.net.Socket
-import java.net.UnknownHostException
+import java.io.{BufferedReader, IOException, InputStreamReader, PrintWriter}
+import java.net.{Socket, UnknownHostException}
 
 
 /**

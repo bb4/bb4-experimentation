@@ -1,15 +1,11 @@
 /** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.experimentation.socket
+package com.barrybecker4.experimentation.socket.server
 
-import javax.swing._
 import java.io.IOException
 import java.net.ServerSocket
 import com.barrybecker4.ui.components.Appendable
+import javax.swing._
 
-
-object Server {
-  val PORT = 4444
-}
 
 /**
   * Multi threaded server for client-server application.

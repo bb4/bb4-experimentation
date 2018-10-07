@@ -1,31 +1,24 @@
 /** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.experimentation.socket
+package com.barrybecker4.experimentation.socket.client
 
 import java.awt._
 import java.awt.event._
-import java.io.{BufferedReader, IOException, InputStreamReader, PrintWriter}
-import java.net.{Socket, UnknownHostException}
 import javax.swing._
 
 
 /**
-  * Socket portion of client-server program using sockets.
+  * Client portion of client-server program using sockets.
   * Adapted from http://java.sun.com/developer/onlineTraining/Programming/BasicJava2/socket.html
   * @author Barry Becker
   */
-object ClientFrame extends App {
-  private val DEFAULT_HOST = "127.0.0.1" /// "192.168.1.100";
-  private val PORT = 4444
-  new ClientFrame("Client Program", DEFAULT_HOST, PORT)
-}
-
-class ClientFrame(title: String, host: String, port: Int) extends JFrame with ActionListener {
+class ClientFrame(title: String, host: String, port: Int) extends JFrame with ActionListener with KeyListener {
   initUI()
 
   setTitle(title)
   addWindowListener(new WindowAdapter() {
     override def windowClosing(e: WindowEvent): Unit = {System.exit(0)}
   })
+
   pack()
   setVisible(true)
   val client = new Client(host, port)
@@ -36,6 +29,7 @@ class ClientFrame(title: String, host: String, port: Int) extends JFrame with Ac
   private def initUI(): Unit = {
     val text = new JLabel("Text to send over socket:")
     textField = new JTextField(40)
+    textField.addKeyListener(this)
     button = new JButton("Send message")
     button.setToolTipText("Send data to server")
     button.addActionListener(this)
@@ -52,14 +46,24 @@ class ClientFrame(title: String, host: String, port: Int) extends JFrame with Ac
     panel.add("South", buttonPanel)
   }
 
+  /** Send text data from UI field over socket */
+  private def transmit(): Unit = {
+    client.send(textField.getText)
+    textField.setText("")
+    println("Text received from server: [ " + client.receive() + " ]")
+  }
+
   /** @param event button click to transmit text.*/
   override def actionPerformed(event: ActionEvent): Unit = {
     val source = event.getSource
-    if (source eq button) { //Send data over socket
-      client.send(textField.getText)
-      textField.setText("")
-
-      println("Text received from server: [ " + client.receive() + " ]")
-    }
+    if (source eq button) transmit()
   }
+
+  /** pressing the enter key will be the same as clickin the send button */
+  override def keyPressed (e: KeyEvent): Unit =
+    if (e.getKeyCode == 10 || e.getKeyCode == 13) transmit()
+
+
+  override def keyTyped(e: KeyEvent): Unit = {}
+  override def keyReleased(e: KeyEvent): Unit = {}
 }

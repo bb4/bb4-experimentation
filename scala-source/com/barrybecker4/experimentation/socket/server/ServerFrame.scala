@@ -1,31 +1,29 @@
 /** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.experimentation.socket
+package com.barrybecker4.experimentation.socket.server
 
 import java.awt._
 import java.awt.event.{WindowAdapter, WindowEvent}
 import com.barrybecker4.ui.components.ScrollingTextArea
 import javax.swing._
-import Server.PORT
-
-object ServerFrame extends App {
-  new ServerFrame
-}
 
 /**
   * UI for Server. This must start before the client or you will get an error on the client.
   * @author Barry Becker
   */
-class ServerFrame() extends JFrame {
+class ServerFrame(port: Int) extends JFrame {
   initUI()
   setTitle("Server Program")
   addWindowListener(new WindowAdapter() {
     override def windowClosing(e: WindowEvent): Unit = {System.exit(0)}
   })
+
+  setLocation(100, 120)
   pack()
   setVisible(true)
 
+
   private var textArea: ScrollingTextArea = _
-  val server = new Server(textArea, PORT)
+  val server = new Server(textArea, port)
 
   private def initUI(): Unit = {
     val panel = new JPanel

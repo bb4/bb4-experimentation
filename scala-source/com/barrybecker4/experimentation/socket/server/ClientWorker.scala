@@ -1,11 +1,9 @@
 // Copyright by Barry G. Becker, 2012 - 2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT
-package com.barrybecker4.experimentation.socket
+package com.barrybecker4.experimentation.socket.server
 
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
-import java.io.PrintWriter
+import java.io.{BufferedReader, IOException, InputStreamReader, PrintWriter}
 import java.net.Socket
+
 import com.barrybecker4.ui.components.Appendable
 
 /**
