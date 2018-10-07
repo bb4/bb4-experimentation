@@ -26,6 +26,27 @@ task runReadNumber(type: JavaExec, dependsOn: classes) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+task runSimpleEditor(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.sedit.SimpleEditorFrame'
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-ea"]
+}
+
+task runNativeRender(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.nativerender.NativeRender'
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = ["-ea"]
+}
+
+task runXMLViewer(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.ui.xmlviewer.DomEcho'
+    classpath = sourceSets.main.runtimeClasspath
+    args = ['scala-source/com/barrybecker4/experimentation/yugioh/yugiohCards.xml']
+}
+
 dependencies {
     compile 'com.barrybecker4:bb4-ui:1.5-SNAPSHOT'
     compile 'com.barrybecker4:bb4-sound:1.5-SNAPSHOT'
