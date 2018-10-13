@@ -5,20 +5,19 @@ package com.barrybecker4.experimentation.gcf
   * Compare two different ways to find the Greatest common factor of two numbers.
   * @author Barry Becker
   */
-object GcfProgram {
+object GcfProgram extends App {
   private val bruteSolver = new BruteGcfSolver
   private val euclidSolver = new EuclidGcfSolver
 
-  def main(args: Array[String]): Unit = {
-    // these will take about 15s for the brute force approach.
-    val a = 2342343454L
-    val b = 456787697786L
-    //val a = 36618
-    //val b = 8105362
-    System.out.println("Finding Greatest Common Factor of a=" + a + " and b=" + b)
-    showResult(a, b, euclidSolver)
-    showResult(a, b, bruteSolver)
-  }
+  // these will take about 15s for the brute force approach.
+  val a = 2342343454L
+  val b = 456787697786L
+  //val a = 36618
+  //val b = 8105362
+  System.out.println("Finding Greatest Common Factor of a=" + a + " and b=" + b)
+  showResult(a, b, euclidSolver)
+  showResult(a, b, bruteSolver)
+
 
   private def showResult(a: Long, b: Long, solver: GcfSolver): Unit = {
     System.out.println("finding answer using " + solver.getClass.getName + " ... ")

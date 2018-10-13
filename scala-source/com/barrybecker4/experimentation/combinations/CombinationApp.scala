@@ -6,13 +6,12 @@ import com.barrybecker4.common.math.MathUtil
 import java.math.BigDecimal
 
 
-/**
-  * I want to determine what are the odds of at least one student scoring higher
+/** I want to determine what are the odds of at least one student scoring higher
   * than 30 out of 40 on a multiple choice test (with CHOICES_PER_QUESTION possible answers for each question)
   * if there are N students taking it.
   *
   * The chance of getting at least one right = 1.0 - the chance of getting none right.
-  * = 1 - pow(3/4, 40) = 0.999989
+  *     1 - pow(3/4, 40)  0.999989
   * In other words, you have only 1/100,000 chance of getting all of them wrong if you guess randomly.
   *
   * @author Barry Becker

@@ -7,12 +7,9 @@ import javax.swing._
 import java.awt._
 
 
-object AxesSynch {
-
-  def main(args: Array[String]): Unit = {
-    val simulator = new AxesSynch
-    GUIUtil.showApplet(simulator)
-  }
+object AxesSynch extends App {
+  val simulator = new AxesSynch
+  GUIUtil.showApplet(simulator)
 }
 
 class AxesSynch() extends JApplet {

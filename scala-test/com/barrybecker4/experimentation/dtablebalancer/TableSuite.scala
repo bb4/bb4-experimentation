@@ -1,6 +1,5 @@
 package com.barrybecker4.experimentation.dtablebalancer
 
-import com.barrybecker4.experimentation.dtablebalancer.Table
 import org.scalatest.FunSuite
 
 /**
