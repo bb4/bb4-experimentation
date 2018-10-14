@@ -16,7 +16,8 @@ import java.math.BigDecimal
   *
   * @author Barry Becker
   */
-object CombinationApp {
+object CombinationApp extends App {
+
   private val NUM_RIGHT = 30
   private val NUM_QUESTIONS = 40
 
@@ -55,18 +56,17 @@ object CombinationApp {
     prob.doubleValue
   }
 
-  def main(args: Array[String]): Unit = {
-    var i = 0
-    while (i <= NUM_QUESTIONS) {
-      val x = getProbabilityOfNorMoreRight(i, NUM_QUESTIONS)
-      System.out.println("Probability " + i + " or more right when taking test is " + FormatUtil.formatNumber(x))
-      i += 1
-    }
-    var p = getProbabilityOfNorMoreRight(NUM_RIGHT, NUM_QUESTIONS)
-    var prob = 1.0 - Math.pow(1.0 - p, 20)
-    println("Probability of having at least one student out of " + 20 + " get >=" + NUM_RIGHT + " is " + prob)
-    p = getProbabilityOfNorMoreRight(NUM_RIGHT, NUM_QUESTIONS)
-    prob = 1.0 - Math.pow(1.0 - p, 100)
-    println("Probability of having at least one student out of " + 100 + " get >=" + NUM_RIGHT + " is " + prob)
+
+  var i = 0
+  while (i <= NUM_QUESTIONS) {
+    val x = getProbabilityOfNorMoreRight(i, NUM_QUESTIONS)
+    System.out.println("Probability " + i + " or more right when taking test is " + FormatUtil.formatNumber(x))
+    i += 1
   }
+  var p = getProbabilityOfNorMoreRight(NUM_RIGHT, NUM_QUESTIONS)
+  var prob = 1.0 - Math.pow(1.0 - p, 20)
+  println("Probability of having at least one student out of " + 20 + " get >=" + NUM_RIGHT + " is " + prob)
+  p = getProbabilityOfNorMoreRight(NUM_RIGHT, NUM_QUESTIONS)
+  prob = 1.0 - Math.pow(1.0 - p, 100)
+  println("Probability of having at least one student out of " + 100 + " get >=" + NUM_RIGHT + " is " + prob)
 }
