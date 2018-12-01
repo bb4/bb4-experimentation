@@ -42,7 +42,7 @@ class NumberTranslator() {
     if (number.compareTo(NumberTranslator.BIGGEST) > 0)
       return theType match {
         case ENGLISH | BRITISH => "I give up. That number is too big even for me."
-        case PHONETIC => "ii g|i|v u|p|. th|a|t n|u|m|b|e|r i|s t|uu b|i|g| ee|v|e|n f|o|r m|ee|."
+        case PHONETIC => "ii g|i|v u|p|. th|a|t n|u|m|b|e|r i|s t|oo b|i|g| ee|v|e|n f|o|r m|ee|."
       }
 
     var result = getTextForGroup(number.mod(NumberTranslator.ONE_THOUSAND).intValue, theType)
@@ -54,9 +54,11 @@ class NumberTranslator() {
         val res = result
         val grouping = translate(GroupNumber.values(group), theType)
         result = getTextForGroup(groupVal, theType) + ' ' + grouping
-        if (!("" == res))
-          result += (if ((theType eq NumberTranslator.Type.ENGLISH) || (theType eq NumberTranslator.Type.BRITISH)) ",\n"
-        else "|, ") + res
+        if ("" != res) {
+          val engOrBrit = (theType eq NumberTranslator.Type.ENGLISH) || (theType eq NumberTranslator.Type.BRITISH)
+          val sep = if (engOrBrit) ",\n" else "|, "
+          result += sep + res
+        }
       }
       n = n.divide(NumberTranslator.ONE_THOUSAND)
       group += 1

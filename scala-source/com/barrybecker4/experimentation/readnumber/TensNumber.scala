@@ -8,7 +8,7 @@ object TensNumber {
 }
 
 case object TWENTY extends NumberEnum("twenty", "t|w|e|n|t|ee")
-case object THIRTY extends NumberEnum("twenty", "th|i|r|t|ee")
+case object THIRTY extends NumberEnum("thirty", "th|i|r|t|ee")
 case object FOURTY extends NumberEnum("forty", "f|o|r|t|ee")
 case object FIFTY extends NumberEnum("fifty", "f|i|f|t|ee")
 case object SIXTY extends NumberEnum("sixty", "s|i|k|s|t|ee")

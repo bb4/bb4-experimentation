@@ -11,7 +11,7 @@ import java.util.Scanner
   */
 object ReadNumberApp extends App {
   /** A greeting specified using allophones. See SpeechSynthesizer.  */
-  private val GREETING = "p|l|ee|z e|n|t|er aa nn|u|m|b|er .|."
+  private val GREETING = "p|l|EE|Z E|N|t|ER aa NN|u|M|B|ER .|."
   private val speech = new SpeechSynthesizer
   private val translator = new NumberTranslator
 

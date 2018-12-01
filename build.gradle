@@ -9,6 +9,7 @@ mainClassName = 'com.barrybecker4.experimentation.axes.AxesSynch'
 
 
 task runGCF(type: JavaExec, dependsOn: classes) {
+    standardInput = System.in
     group = 'application'
     main = 'com.barrybecker4.experimentation.gcf.GcfProgram'
     classpath = sourceSets.main.runtimeClasspath
@@ -21,6 +22,7 @@ task runAxesSynch(type: JavaExec, dependsOn: classes) {
 }
 
 task runReadNumber(type: JavaExec, dependsOn: classes) {
+    standardInput = System.in
     group = 'application'
     main = 'com.barrybecker4.experimentation.readnumber.ReadNumberApp'
     classpath = sourceSets.main.runtimeClasspath
@@ -34,6 +36,7 @@ task runSimpleEditor(type: JavaExec, dependsOn: classes) {
 }
 
 task runNativeRender(type: JavaExec, dependsOn: classes) {
+    standardInput = System.in
     group = 'application'
     main = 'com.barrybecker4.experimentation.nativerender.NativeRender'
     classpath = sourceSets.main.runtimeClasspath
@@ -41,6 +44,7 @@ task runNativeRender(type: JavaExec, dependsOn: classes) {
 }
 
 task runXMLViewer(type: JavaExec, dependsOn: classes) {
+    standardInput = System.in
     group = 'application'
     main = 'com.barrybecker4.ui.xmlviewer.DomEcho'
     classpath = sourceSets.main.runtimeClasspath
