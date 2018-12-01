@@ -3,7 +3,4 @@
 .idea
 .gradle/
 bb4-experimentation.iml
-gradle/
-gradlew
-gradlew.bat
 out/
