@@ -54,6 +54,12 @@ task runXMLViewer(type: JavaExec, dependsOn: classes) {
     args = ['scala-source/com/barrybecker4/experimentation/yugioh/yugiohCards.xml']
 }
 
+task runLineBreaks(type: JavaExec, dependsOn: classes) {
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.linebreaks.LineBreakSample'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 dependencies {
     compile 'com.barrybecker4:bb4-ui:1.5-SNAPSHOT'
     compile 'com.barrybecker4:bb4-sound:1.5-SNAPSHOT'
