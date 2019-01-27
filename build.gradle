@@ -3,7 +3,7 @@ plugins {
 }
 description = 'Some experimental apps'
 group = 'com.barrybecker4'
-version = '1.0-SNAPSHOT'
+version = '1.0'
 
 apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
 
