@@ -61,8 +61,8 @@ task runLineBreaks(type: JavaExec, dependsOn: classes) {
 }
 
 dependencies {
-    compile 'com.barrybecker4:bb4-ui:1.5-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-sound:1.5-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-ui:1.6-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-sound:1.6-SNAPSHOT'
 }
 
 jar {
