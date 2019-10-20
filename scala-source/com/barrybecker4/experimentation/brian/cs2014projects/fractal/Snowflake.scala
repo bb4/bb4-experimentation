@@ -1,20 +1,17 @@
 package com.barrybecker4.experimentation.brian.cs2014projects.fractal
 
-import javax.swing.JApplet
-import javax.swing.JOptionPane
+import javax.swing.{JApplet, JFrame, JOptionPane}
 import java.awt.Graphics
 
 
 /**
   * @author Period 5
   */
-class Snowflake extends JApplet {
-  private[fractal] var level = 0
+class Snowflake extends JFrame {
 
-  override def init(): Unit = {
-    val levelStr = JOptionPane.showInputDialog("Enter the depth of recursion")
-    level = levelStr.toInt
-  }
+  private val levelStr = JOptionPane.showInputDialog("Enter the depth of recursion")
+  private[fractal] var level = levelStr.toInt
+
 
   override def paint(g: Graphics): Unit = {
     drawSnow(g, level, 20, 280, 280, 280)

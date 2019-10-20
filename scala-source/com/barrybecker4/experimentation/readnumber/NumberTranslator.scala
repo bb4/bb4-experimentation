@@ -89,7 +89,7 @@ class NumberTranslator() {
         case BRITISH => HUNDRED.label + (if (remainder == 0) "" else " and")
         case PHONETIC => HUNDRED.pronunciation
       }
-      ' ' + hundredsPart + ' ' + hundred + ' ' + getTextForGroup(remainder, theType)
+      s" $hundredsPart $hundred ${getTextForGroup(remainder, theType)}"
     }
   }
 

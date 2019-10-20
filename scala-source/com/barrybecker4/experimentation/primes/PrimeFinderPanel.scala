@@ -32,7 +32,7 @@ class PrimeFinderPanel() extends JPanel {
       if ("progress" == evt.getPropertyName) {
         val progress = evt.getNewValue.asInstanceOf[Integer]
         progressBar.setValue(progress)
-        progressBar.setString(progress + "% done")
+        progressBar.setString(s"$progress% done")
       }
     })
     task.execute()

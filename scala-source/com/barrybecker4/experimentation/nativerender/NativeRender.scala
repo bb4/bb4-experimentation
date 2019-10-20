@@ -40,7 +40,7 @@ object NativeRender extends App {
     var i = 0
     while (i < displayModes.length) {
       val displayMode = displayModes(i)
-      println(i + " " + displayMode.getWidth + "x" + displayMode.getHeight + " \t" + displayMode.getRefreshRate + " / " + displayMode.getBitDepth)
+      println(s"$i ${displayMode.getWidth} x ${displayMode.getHeight} \t${displayMode.getRefreshRate} / ${displayMode.getBitDepth}")
       i += 1
     }
   }
@@ -69,7 +69,7 @@ object NativeRender extends App {
     val width = frame.getWidth
     val height = frame.getHeight
     val g = bufferStrategy.getDrawGraphics.asInstanceOf[Graphics2D]
-    g.drawString("width=" + width + " height=" + height, 20, 20)
+    g.drawString(s"width= $width height= $height", 20, 20)
     var i = 0
     while (i < 2000) {
       g.setColor(new Color(RANDOM.nextInt))

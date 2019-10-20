@@ -22,6 +22,6 @@ object Populate {
       myStrings += num
     }
     for (i <- 0 until size)
-      print(myStrings(i) + " ,")
+      print(s"${myStrings(i)}  ,1")
   }
 }

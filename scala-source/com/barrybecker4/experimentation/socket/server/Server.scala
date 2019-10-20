@@ -32,7 +32,7 @@ class Server(textArea: Appendable, port: Int) extends JFrame {
     */
   override protected def finalize(): Unit = {
     try {
-      super.finalize()
+      //super.finalize()
       server.close()
     } catch {
       case e: IOException =>

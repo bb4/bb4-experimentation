@@ -1,11 +1,11 @@
 plugins {
-    id "com.github.maiflai.scalatest" version "0.19" // needed to run scala tests
+    id "com.github.maiflai.scalatest" version "0.25" // needed to run scala tests
 }
 description = 'Some experimental apps'
 group = 'com.barrybecker4'
-version = '1.0'
+version = '1.6-SNAPSHOT'
 
-apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4.gradle'
+apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4.gradle'
 
 project.archivesBaseName = 'bb4-experimentation'
 mainClassName = 'com.barrybecker4.experimentation.axes.AxesSynch'
@@ -76,4 +76,4 @@ jar {
 }
 
 // This allows publishing this library to Sonatype
-apply from: 'https://raw.github.com/barrybecker4/bb4-common/master/bb4-publish.gradle'
+apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4-publish.gradle'

@@ -2,12 +2,11 @@
 package com.barrybecker4.experimentation.colormixer
 
 import java.awt._
-import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 
 import javax.swing._
 import SwatchPanel._
-import com.sun.javafx.geom.Ellipse2D
+
 
 
 object SwatchPanel {

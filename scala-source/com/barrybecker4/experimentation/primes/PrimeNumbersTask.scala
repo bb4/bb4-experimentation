@@ -3,7 +3,7 @@ package com.barrybecker4.experimentation.primes
 import com.barrybecker4.ui.components.Appendable
 import javax.swing.SwingWorker
 import java.util
-import scala.collection.JavaConverters.asScalaBuffer
+import scala.jdk.CollectionConverters._
 
 
 /**
@@ -26,7 +26,7 @@ class PrimeNumbersTask private[primes](var textArea: Appendable, var numbersToFi
   }
 
   override protected def process(chunks: util.List[Int]): Unit = {
-    textArea.append(asScalaBuffer(chunks).mkString("\n"))
+    textArea.append((chunks.asScala).mkString("\n"))
   }
 }
 

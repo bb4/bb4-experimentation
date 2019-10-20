@@ -9,20 +9,19 @@ import java.awt._
 
 object AxesSynch extends App {
   val simulator = new AxesSynch
-  GUIUtil.showApplet(simulator)
+  simulator.setPreferredSize(new Dimension(600, 400));
+  simulator.pack()
+  simulator.setVisible(true)
 }
 
-class AxesSynch() extends JApplet {
+class AxesSynch() extends JFrame {
   commonInit()
-  private var resizablePanel: ResizableAppletPanel = _
 
   def commonInit(): Unit = {
-    GUIUtil.setCustomLookAndFeel()
     enableEvents(AWTEvent.WINDOW_EVENT_MASK)
     setFont(new Font(GUIUtil.DEFAULT_FONT_FAMILY, Font.PLAIN, 14))
     val mainPanel = createMainPanel
-    resizablePanel = new ResizableAppletPanel(mainPanel)
-    this.getContentPane.add(resizablePanel)
+    this.getContentPane.add(mainPanel)
   }
 
   private def createMainPanel = {
@@ -38,10 +37,6 @@ class AxesSynch() extends JApplet {
     mainPanel.add(axesPanelContainer, BorderLayout.NORTH)
     mainPanel
   }
-
-  /** This method allow javascript to resize the applet from the browser. */
-  override def setSize(width: Int, height: Int): Unit =
-    resizablePanel.setSize(width, height)
 
   override def getName = "Axes Synchronizer"
 }

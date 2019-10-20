@@ -1,6 +1,7 @@
 package com.barrybecker4.experimentation.brian.cs2014projects.fractal
 
 import javax.swing.JFrame
+import javax.swing.WindowConstants
 import java.awt.Graphics
 import java.awt.image.BufferedImage
 import Mandelbrot._
@@ -21,7 +22,7 @@ object Mandelbrot {
 class Mandelbrot extends JFrame("Mandelbrot Set") {
   setBounds(100, 100, 800, 600)
   setResizable(false)
-  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+  setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
   private val I = new BufferedImage(getWidth, getHeight, BufferedImage.TYPE_INT_RGB)
 
   private var zx = .0
