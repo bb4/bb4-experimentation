@@ -2,7 +2,7 @@
 package com.barrybecker4.experimentation.combinations
 
 import com.barrybecker4.common.format.FormatUtil
-import com.barrybecker4.common.math.MathUtil
+import com.barrybecker4.math.MathUtil
 import java.math.BigDecimal
 
 
