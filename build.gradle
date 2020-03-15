@@ -1,14 +1,14 @@
 plugins {
     id "com.github.maiflai.scalatest" version "0.25" // needed to run scala tests
 }
-description = 'Some experimental apps'
+description = 'Experimental apps and code'
 group = 'com.barrybecker4'
 version = '1.6-SNAPSHOT'
-
+ext {
+    archivesBaseName = 'bb4-experimentation'
+    mainClass = 'com.barrybecker4.experimentation.axes.AxesSynch'
+}
 apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4.gradle'
-
-project.archivesBaseName = 'bb4-experimentation'
-mainClassName = 'com.barrybecker4.experimentation.axes.AxesSynch'
 
 dependencies {
     compile 'com.barrybecker4:bb4-math:1.6-SNAPSHOT'
@@ -63,17 +63,6 @@ task runLineBreaks(type: JavaExec, dependsOn: classes) {
     group = 'application'
     main = 'com.barrybecker4.experimentation.linebreaks.LineBreakSample'
     classpath = sourceSets.main.runtimeClasspath
-}
-
-
-jar {
-    archiveName = "${archivesBaseName}-${version}.jar"
-    manifest {
-        attributes 'Implementation-Title': 'Experimental code',
-                'Implementation-Version': version,
-                'provider': 'gradle',
-                'Main-Class': mainClassName
-    }
 }
 
 // This allows publishing this library to Sonatype
