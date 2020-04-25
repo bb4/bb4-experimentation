@@ -12,12 +12,9 @@ import java.awt.event.ActionListener
 import SwatchPanel._
 
 
-object ColorMixer {
-
-  def main(args: Array[String]): Unit = {
-    val simulator = new ColorMixer
-    GUIUtil.showApplet(simulator)
-  }
+object ColorMixer extends App {
+  val simulator = new ColorMixer
+  GUIUtil.showApplet(simulator)
 }
 
 /**

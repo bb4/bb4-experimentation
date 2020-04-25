@@ -1,6 +1,14 @@
 package com.barrybecker4.experimentation.threenumbers
 
-
+/**
+  * Fun with double precision arithmetic
+  * This program shows how you should not necessarily trust the results of
+  * arithmetic in the JVM. It's not always what you might expect!
+  * The order in which you perform operation can matter a lot.
+  * Below we try various cases of
+  * a - 3 - 4 to see how it compares to a - 4 - 3
+  * for various values of a.
+  */
 object ThreeNumbers extends App {
 
   def diff(a: Float, b: Float = 3.0f, c: Float = 0.4f): Unit = {
