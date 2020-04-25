@@ -1,4 +1,4 @@
-/** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
+// Copyright by Barry G. Becker, 2000-2020. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.socket.server
 
 import java.io.IOException
@@ -20,24 +20,11 @@ class Server(textArea: Appendable, port: Int) extends JFrame {
   def listenSocket(): Unit = {
     try {
       server = new ServerSocket(port)
-      val w: ClientWorker = new ClientWorker(server.accept, textArea)
-      new Thread(w).start() // consider using executor framework here.
     } catch {
       case e: IOException => throw new IllegalStateException("Could not listen on port " + port, e)
     }
+    val w: ClientWorker = new ClientWorker(server.accept, textArea)
+    new Thread(w).start() // consider using executor framework here.
   }
 
-  /** Objects created in run method are finalized when
-    * program terminates and thread exits.
-    */
-  override protected def finalize(): Unit = {
-    try {
-      //super.finalize()
-      server.close()
-    } catch {
-      case e: IOException =>
-        throw new IllegalStateException("Could not close socket", e)
-      case t: Throwable => t.printStackTrace()
-    }
-  }
 }

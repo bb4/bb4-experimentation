@@ -1,8 +1,8 @@
 package com.barrybecker4.experimentation.dtablebalancer
 
 import org.junit.Assert.assertEquals
-import org.scalatest.FunSuite
 import AllTestCasesSuite.TOL
+import org.scalatest.funsuite.AnyFunSuite
 
 object AllTestCasesSuite {
   val TOL = 0.00001
@@ -10,7 +10,7 @@ object AllTestCasesSuite {
 /**
   * @author Barry Becker
   */
-class AllTestCasesSuite extends FunSuite {
+class AllTestCasesSuite extends AnyFunSuite {
 
   test("runAllTestCases") {
 

@@ -5,13 +5,16 @@ import com.barrybecker4.experimentation.socket.server.ServerFrame
 import concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-
+/**
+  * Opens 2 windows. The ServerFrame runs in a separate thread.
+  * Type text in the ClentFrame and send it to the server via a socket.
+  */
 object SocketApp extends App {
 
   private val DEFAULT_HOST = "127.0.0.1" /// "192.168.1.100";
   private val PORT = 4444
 
-  Future { new ServerFrame(PORT) }
+  Future { ServerFrame(PORT) }
 
-  new ClientFrame("Client Program", DEFAULT_HOST, PORT)
+  ClientFrame(DEFAULT_HOST, PORT)
 }

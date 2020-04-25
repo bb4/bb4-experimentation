@@ -1,11 +1,11 @@
 package com.barrybecker4.experimentation.dtablebalancer
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
 /**
   * @author Barry Becker
   */
-class TableSuite extends FunSuite {
+class TableSuite extends AnyFunSuite {
   test("Uniform3x3TableWithIdealArea") {
     val table = new Table(TableExamples.UNIFORM_3x3, 300, 300)
     assertResult("1.00\t1.00\t1.00\t\n" + "1.00\t1.00\t1.00\t\n" + "1.00\t1.00\t1.00\t\n" + "Overall coverage: 1.00") {

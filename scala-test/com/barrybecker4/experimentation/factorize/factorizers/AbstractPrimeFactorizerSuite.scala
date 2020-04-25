@@ -2,7 +2,8 @@ package com.barrybecker4.experimentation.factorize.factorizers
 
 import java.math.BigInteger
 
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.BeforeAndAfter
 
 
 object AbstractPrimeFactorizerSuite  {
@@ -17,7 +18,7 @@ object AbstractPrimeFactorizerSuite  {
 /**
   * @author Barry Becker
   */
-abstract class AbstractPrimeFactorizerSuite extends FunSuite with BeforeAndAfter {
+abstract class AbstractPrimeFactorizerSuite extends AnyFunSuite with BeforeAndAfter {
 
   protected var factorizer: PrimeFactorizer = _
 
