@@ -10,6 +10,10 @@ ext {
 }
 apply from: 'https://raw.githubusercontent.com/bb4/bb4-common/master/bb4.gradle'
 
+run {
+    standardInput = System.in
+}
+
 dependencies {
     compile 'com.barrybecker4:bb4-math:1.6-SNAPSHOT'
     compile 'com.barrybecker4:bb4-ui:1.6-SNAPSHOT'
@@ -20,6 +24,20 @@ task runGCF(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
     main = 'com.barrybecker4.experimentation.gcf.GcfProgram'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runFactorizeApp(type: JavaExec, dependsOn: classes) {
+    standardInput = System.in
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.factorize.PrimeFactorizeApp'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runOnesAndZerosPuzzler(type: JavaExec, dependsOn: classes) {
+    standardInput = System.in
+    group = 'application'
+    main = 'com.barrybecker4.experimentation.puzzlers.OnesAndZerosPuzzler'
     classpath = sourceSets.main.runtimeClasspath
 }
 
