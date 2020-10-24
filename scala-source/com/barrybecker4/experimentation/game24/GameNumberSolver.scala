@@ -1,14 +1,8 @@
 package com.barrybecker4.experimentation.game24
 
-import javax.script.ScriptEngineManager
 
 
 object GameNumberSolver {
-  val manager = new ScriptEngineManager
-
-  // Since nashborn is deprecated, we could try rhino if it is ever removed
-  // Instead of using an engine, we could do the computation locally while building the expression
-  private val ENGINE = manager.getEngineByName("js")
 
   private val PARTITION_INDICES = Seq(
     Seq(0), Seq(1), Seq(2), Seq(3),
@@ -27,40 +21,40 @@ class GameNumberSolver(num: Float = 24.0f) {
   def find24Expression(digits: IndexedSeq[Int]): String = {
 
     for (exp <- findAllPossibleExpressions(digits)) {
-      if (GameNumberSolver.ENGINE.eval(exp).toString.toFloat == num)
-        return exp
+      if (exp.result == num)
+        return exp.expression
     }
 
     "No solution"
   }
 
-  def findAllPossibleExpressions(digits: Seq[Int], parentIsTimesOrDivide: Boolean = false): Seq[String] = {
+  def findAllPossibleExpressions(digits: Seq[Int], parentIsTimesOrDivide: Boolean = false): Seq[Exp] = {
 
     val leftParen = if (parentIsTimesOrDivide) "(" else ""
     val rightParen = if (parentIsTimesOrDivide) ")" else ""
 
     if (digits.length == 1) {
-      Seq(digits.head.toString)
+      Seq(Exp(digits.head, digits.head.toString))
     }
     else {
       val partitions = getPartitions(digits)
 
-        var expList: Seq[String] = Seq()
+        var expList: Seq[Exp] = Seq()
 
         for (partition <- partitions) {
           for (exp1 <- findAllPossibleExpressions(partition._1)) {
             for (exp2 <- findAllPossibleExpressions(partition._2)) {
-              expList :+= leftParen + exp1 + "+" + exp2 + rightParen
-              expList :+= leftParen + exp1 + "-" + exp2 + rightParen
-              expList :+= leftParen + exp2 + "-" + exp1 + rightParen
+              expList :+= Exp(exp1.result + exp2.result, leftParen + exp1.expression + "+" + exp2.expression + rightParen)
+              expList :+= Exp(exp1.result - exp2.result, leftParen + exp1.expression + "-" + exp2.expression + rightParen)
+              expList :+= Exp(exp2.result - exp1.result, leftParen + exp2.expression + "-" + exp1.expression + rightParen)
             }
           }
 
           for (exp1 <- findAllPossibleExpressions(partition._1, parentIsTimesOrDivide = true)) {
             for (exp2 <- findAllPossibleExpressions(partition._2, parentIsTimesOrDivide = true)) {
-              expList :+= exp1 + "*" + exp2
-              expList :+= exp1 + "/" + exp2
-              expList :+= exp2 + "/" + exp1
+              expList :+= Exp(exp1.result * exp2.result, exp1.expression+ "*" + exp2.expression)
+              expList :+= Exp(exp1.result / exp2.result, exp1.expression + "/" + exp2.expression)
+              expList :+= Exp(exp2.result / exp1.result, exp2.expression + "/" + exp1.expression)
             }
           }
         }
