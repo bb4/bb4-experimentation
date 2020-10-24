@@ -1,6 +1,6 @@
 package com.barrybecker4.experimentation.game24
 
-
+import Exp._
 
 object GameNumberSolver {
 
@@ -30,9 +30,6 @@ class GameNumberSolver(num: Float = 24.0f) {
 
   def findAllPossibleExpressions(digits: Seq[Int], parentIsTimesOrDivide: Boolean = false): Seq[Exp] = {
 
-    val leftParen = if (parentIsTimesOrDivide) "(" else ""
-    val rightParen = if (parentIsTimesOrDivide) ")" else ""
-
     if (digits.length == 1) {
       Seq(Exp(digits.head, digits.head.toString))
     }
@@ -44,17 +41,17 @@ class GameNumberSolver(num: Float = 24.0f) {
         for (partition <- partitions) {
           for (exp1 <- findAllPossibleExpressions(partition._1)) {
             for (exp2 <- findAllPossibleExpressions(partition._2)) {
-              expList :+= Exp(exp1.result + exp2.result, leftParen + exp1.expression + "+" + exp2.expression + rightParen)
-              expList :+= Exp(exp1.result - exp2.result, leftParen + exp1.expression + "-" + exp2.expression + rightParen)
-              expList :+= Exp(exp2.result - exp1.result, leftParen + exp2.expression + "-" + exp1.expression + rightParen)
+              expList :+= exp1.combine(exp2, PLUS, parentIsTimesOrDivide)
+              expList :+= exp1.combine(exp2, MINUS, parentIsTimesOrDivide)
+              expList :+= exp2.combine(exp1, MINUS, parentIsTimesOrDivide)
             }
           }
 
           for (exp1 <- findAllPossibleExpressions(partition._1, parentIsTimesOrDivide = true)) {
             for (exp2 <- findAllPossibleExpressions(partition._2, parentIsTimesOrDivide = true)) {
-              expList :+= Exp(exp1.result * exp2.result, exp1.expression+ "*" + exp2.expression)
-              expList :+= Exp(exp1.result / exp2.result, exp1.expression + "/" + exp2.expression)
-              expList :+= Exp(exp2.result / exp1.result, exp2.expression + "/" + exp1.expression)
+              expList :+= exp1.combine(exp2, TIMES)
+              expList :+= exp1.combine(exp2, DIVIDE)
+              expList :+= exp2.combine(exp1, DIVIDE)
             }
           }
         }
