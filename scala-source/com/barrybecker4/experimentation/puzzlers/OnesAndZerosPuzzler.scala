@@ -23,7 +23,9 @@ import com.barrybecker4.common.util.Input
   */
 object OnesAndZerosPuzzler extends App {
 
+  val LIMIT = 10000L
   val MILLION = new BigInteger("1000000")
+
 
   def getOnesNumber(numOfOnes: Int): BigInteger = {
     new BigInteger("1" * numOfOnes)
@@ -31,14 +33,25 @@ object OnesAndZerosPuzzler extends App {
 
   /** @param num number to show the remainders for.*/
   def showRemainders(num: BigInteger): Unit = {
-    val limit: Int = Math.min(1000L, num.longValue()).toInt
+    val limit: Int = Math.min(LIMIT, num.longValue()).toInt
+    var ctMap: Map[BigInteger, Int] = Map()
+
     for (i <- 1 to limit) {
       val onesNumber = getOnesNumber(i)
       val onesNumStr = if (onesNumber.compareTo(MILLION) < 0) onesNumber.toString() else s"$i ones"
-      val remainder  = onesNumber.divideAndRemainder(num)
+      val remainder = onesNumber.divideAndRemainder(num)(1)
 
-      println(s"$i) rem: ${remainder(1)} for $onesNumStr")
+      if (ctMap.contains(remainder))
+        ctMap += remainder -> (ctMap(remainder) + 1)
+      else
+        ctMap += remainder -> 1
+
+      println(s"$i) rem: ${remainder} for $onesNumStr")
     }
+    println()
+    val sortedKeys = ctMap.keySet.toList.sorted
+    println(sortedKeys.map(key => s"$key : ${ctMap(key)}").mkString("\n"))
+
   }
 
   println("\n==================================================================\n")
