@@ -30,6 +30,18 @@ object BinaryTokensStrategy {
     val ln_n = Math.log(n)
     n * (ln_n + Math.log(ln_n))
   }
+
+  /**
+    * https://math.stackexchange.com/questions/285700/how-many-random-samples-needed-to-pick-all-elements-of-set
+    * expected number of days for all N prisoners to be sampled
+    */
+  def expNumDaysForAll(n: Int): Int = {
+    var sum: Double = 0
+    for (i <- 1 to n) {
+      sum += 1.0 / i.toDouble
+    }
+    (n * sum).toInt
+  }
 }
 
 /**

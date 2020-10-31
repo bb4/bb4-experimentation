@@ -57,5 +57,11 @@ class BinaryTokenStrategySuite extends AnyFunSuite {
       Array.range(1, T + 1).map(k => computeP(k, T, n))
     }
   }
+
+  test("expected number of days to sample all") {
+    assertResult(Array[Int](1, 1, 1, 1, 1, 1, 1)) {
+      Array(10, 20, 50, 100).map(n => expNumDaysForAll(n))
+    }
+  }
 }
 
