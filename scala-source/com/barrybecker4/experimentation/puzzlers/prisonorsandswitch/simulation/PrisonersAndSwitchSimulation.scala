@@ -1,6 +1,6 @@
-package com.barrybecker4.experimentation.prisonorsandswitch.simulation
+package com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation
 
-import com.barrybecker4.experimentation.prisonorsandswitch.simulation.strategies.PrisonerStrategy
+import com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.strategies.PrisonerStrategy
 import scala.util.Random
 
 
@@ -24,7 +24,7 @@ case class PrisonersAndSwitchSimulation(strategy: PrisonerStrategy, rnd: Random 
     }
 
     val elapsedTime = (System.currentTimeMillis() - startTime).toDouble / 1000
-    println("Completed in " + roomState.dayCount + " days (" + elapsedTime + " seconds)")
+    println("Completed in " + (roomState.dayCount - 1) + " days (" + elapsedTime + " seconds)")
     roomState.dayCount
   }
 }

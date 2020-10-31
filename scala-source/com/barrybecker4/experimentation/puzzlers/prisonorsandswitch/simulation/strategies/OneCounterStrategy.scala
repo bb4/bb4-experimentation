@@ -1,6 +1,6 @@
-package com.barrybecker4.experimentation.prisonorsandswitch.simulation.strategies
+package com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.strategies
 
-import com.barrybecker4.experimentation.prisonorsandswitch.simulation.{Prisoner, RoomState}
+import com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.{Prisoner, RoomState}
 
 /**
   * The first prisoner will be the counter
@@ -24,8 +24,8 @@ class OneCounterStrategy(numPrisoners: Int) extends PrisonerStrategy(numPrisoner
         }
       } else { // not counter
         if (!state.switchState) {
-          val newState = prisoner.visitCount == 0
-          prisoner.visitCount += 1
+          val newState = prisoner.counter == 0
+          prisoner.counter += 1
           newState
         } else true
       }

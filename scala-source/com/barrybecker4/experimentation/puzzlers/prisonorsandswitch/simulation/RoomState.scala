@@ -1,4 +1,4 @@
-package com.barrybecker4.experimentation.prisonorsandswitch.simulation
+package com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation
 
 case class RoomState(dayCount: Int, switchState: Boolean, hasEveryoneVisited: Boolean = false) {
 

@@ -1,11 +1,13 @@
-package com.barrybecker4.experimentation.prisonorsandswitch
+package com.barrybecker4.experimentation.puzzlers.prisonorsandswitch
 
 import java.util.IntSummaryStatistics
+
 import com.barrybecker4.common.util.Input
-import com.barrybecker4.experimentation.prisonorsandswitch.simulation.PrisonersAndSwitchSimulation
-import com.barrybecker4.experimentation.prisonorsandswitch.simulation.strategies.{FeelingLuckyStrategy, OneCounterStrategy, PrisonerStrategy}
+import com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.PrisonersAndSwitchSimulation
+import com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.strategies.{FeelingLuckyStrategy, OneCounterStrategy, OptimalStrategy, PrisonerStrategy}
 
 import scala.util.Random
+
 
 object PrisonersAndSwitchSimulator extends App {
 
@@ -15,7 +17,8 @@ object PrisonersAndSwitchSimulator extends App {
   private val numPrisoners = Input.getLong("How many prisoners?[1 - 100]:", 1, 100).toInt
   private val numTrials = Input.getLong("How many trials should be run?[1 - 1000]:", 1, 1000).toInt
   private val strategyIdx =
-      Input.getLong("Which strategy to use?\n[1: Feeling Lucky, 2:Counter]:", 1, 2).toInt
+      Input.getLong("Which strategy to use? " +
+        "[\n  1: Feeling Lucky\n  2: Counter\n  3: Optimal\n]:", 1, 3).toInt
 
   val stats = runTrials(numTrials, strategyIdx)
 
@@ -24,7 +27,6 @@ object PrisonersAndSwitchSimulator extends App {
 
 
   def runTrials(numTrials: Int, strategyIdx: Int): IntSummaryStatistics = {
-    var numDaysResults = List[Int]()
     val stats = new IntSummaryStatistics()
 
     for (i <- 0 until numTrials) {
@@ -32,11 +34,11 @@ object PrisonersAndSwitchSimulator extends App {
       val strategy = strategyIdx match {
         case 1 => new FeelingLuckyStrategy(numPrisoners)
         case 2 => new OneCounterStrategy(numPrisoners)
+        case 3 => new OptimalStrategy(numPrisoners)
       }
       val simulation = PrisonersAndSwitchSimulation(strategy, rnd)
 
       val numDays = simulation.run()
-      numDaysResults :+= numDays
       stats.accept(numDays)
     }
     stats

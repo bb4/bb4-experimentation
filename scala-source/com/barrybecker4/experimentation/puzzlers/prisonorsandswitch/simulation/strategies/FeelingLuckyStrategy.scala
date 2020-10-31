@@ -1,6 +1,6 @@
-package com.barrybecker4.experimentation.prisonorsandswitch.simulation.strategies
+package com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.strategies
 
-import com.barrybecker4.experimentation.prisonorsandswitch.simulation.{Prisoner, RoomState}
+import com.barrybecker4.experimentation.puzzlers.prisonorsandswitch.simulation.{Prisoner, RoomState}
 
 
 class FeelingLuckyStrategy(numPrisoners: Int) extends PrisonerStrategy(numPrisoners) {
@@ -24,15 +24,15 @@ class FeelingLuckyStrategy(numPrisoners: Int) extends PrisonerStrategy(numPrison
         else state.switchState
       } else {
         if (isFirstTimeVisitingThisBlock) {
-          prisoner.visitCount = 0
+          prisoner.counter = 0
           state.switchState
         }
-        else if (prisoner.visitCount == 1) false
+        else if (prisoner.counter == 1) false
         else state.switchState
       }
 
     prisoner.lastVisitedDay = state.dayCount
-    prisoner.visitCount += 1
+    prisoner.counter += 1
 
     state.nextState(newSwitchState, hasEveryoneVisited)
   }
