@@ -74,7 +74,8 @@ class BinaryTokensStrategy(numPrisoners: Int) extends PrisonerStrategy(numPrison
     val Tbinary = prisoner.counter.toBinaryString
     val m = computeM(state.dayCount, numPrisoners, TT)
     val mm1 = computeM(state.dayCount - 1, numPrisoners, TT)
-    val Tm = if (m >= Tbinary.length) 0 else Tbinary.reverse.charAt(m).toString.toInt
+    val Tm =
+       if (m >= Tbinary.length) 0 else Tbinary.reverse.charAt(m).toString.toInt
     //println("prisoner" + prisoner.id +" T = " + prisoner.counter + " Tbinary = " + Tbinary + " T(" + m + ") = " + Tm + " ")
     val Pk = Math.pow(2, m).toInt
     val Pkm1 = Math.pow(2, mm1).toInt
@@ -89,9 +90,10 @@ class BinaryTokensStrategy(numPrisoners: Int) extends PrisonerStrategy(numPrison
     }
     if (Tm == 1) {
       newSwitchState = true
-      prisoner.counter -= Pk
+      // I'm not sure if this is an error in the paper or not, but if we include this line
+      // then the results will be no better than the OneCounter strategy
+      // prisoner.counter -= Pk
     }
-    //  Else, if Tm = 0, leave the bulb OFF and do nothing.
 
     state.nextState(newSwitchState, hasEveryoneVisited)
   }

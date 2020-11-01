@@ -26,7 +26,7 @@ object PrisonersAndSwitchSimulator extends App {
   val stats = runTrials(numTrials, strategyIdx)
 
   println("Summary statistics for " + numTrials + " trials of " + numPrisoners + " prisoners playing the game.")
-  println(stats.toString)
+  println(getStatsString(stats))
 
 
   def runTrials(numTrials: Int, strategyIdx: Int): IntSummaryStatistics = {
@@ -46,5 +46,10 @@ object PrisonersAndSwitchSimulator extends App {
       stats.accept(numDays)
     }
     stats
+  }
+
+
+  private def getStatsString(stats: IntSummaryStatistics): String = {
+    s"Average days to success: ${stats.getAverage} [${stats.getMin} - ${stats.getMax}]"
   }
 }
