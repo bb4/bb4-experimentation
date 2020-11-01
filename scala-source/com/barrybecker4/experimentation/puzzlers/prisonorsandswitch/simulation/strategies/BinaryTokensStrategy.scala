@@ -7,41 +7,48 @@ import BinaryTokensStrategy._
 object BinaryTokensStrategy {
 
   private val LOG2 = Math.log10(2)
+  private def log2(x: Double): Double = Math.log10(x) / LOG2
+  private var NLNN_FUN_CACHE = Map[Int, Double]()
+  private var T_CACHE = Map[Int, Int]()
 
-  /** T = log2 (n * n (ln(n) + ln(ln(n)) ))
-    */
-  def computeT(n: Int): Int =
-    Math.floor(Math.log10(n * nlnFun(n)) / LOG2).toInt
+  /** T = log2(n) * ( ln(n) + ln(ln(n)) )  */
+  def computeT(n: Int): Int = {
+    if (T_CACHE.contains(n)) {
+      T_CACHE(n)
+    } else {
+      val result = Math.floor(log2(n) * nlnFun(n)).toInt
+      T_CACHE += n -> result
+      result
+    }
+  }
 
-  /*
-   * Pk = 2m where m is
+  def computeM(k: Int, n: Int, T: Int): Int =
+    Math.floor((k % T) / nlnFun(n)).toInt
+
+  /** Pk = 2m where m is
    * floor(
-   *     (k % T) / (n (ln(n) + ln(ln(n)) ))
+   *     (k % T) / (ln(n) + ln(ln(n)) )
    * )
    * and n = number of prisoners
+   * The paper seems to have a typo. It says that the denominator is
+    * (n (ln(n) + ln(ln(n)) ), but I think it should be (ln(n) + ln(ln(n))
    */
-  def computeP(k: Int, n: Int, T: Int): Int = {
-    val exp = Math.floor((k % T) / nlnFun(n)).toInt
-    Math.pow(2, exp).toInt
-  }
+  def computeP(k: Int, n: Int, T: Int): Int =
+    Math.pow(2, computeM(k, n, T)).toInt
 
-
+  // memoized for performance
   def nlnFun(n: Int): Double = {
-    val ln_n = Math.log(n)
-    n * (ln_n + Math.log(ln_n))
+    if (NLNN_FUN_CACHE.contains(n))
+      NLNN_FUN_CACHE(n)
+    else {
+      val ln_n = Math.log(n)
+      val result = Math.round(ln_n + Math.log(ln_n)) // floor?
+      // Math.round(n * (ln_n + Math.log(ln_n))) // the paper says this, but I think it is wrong
+      NLNN_FUN_CACHE += n -> result
+      result
+    }
   }
 
-  /**
-    * https://math.stackexchange.com/questions/285700/how-many-random-samples-needed-to-pick-all-elements-of-set
-    * expected number of days for all N prisoners to be sampled
-    */
-  def expNumDaysForAll(n: Int): Int = {
-    var sum: Double = 0
-    for (i <- 1 to n) {
-      sum += 1.0 / i.toDouble
-    }
-    (n * sum).toInt
-  }
 }
 
 /**
@@ -55,35 +62,36 @@ object BinaryTokensStrategy {
   */
 class BinaryTokensStrategy(numPrisoners: Int) extends PrisonerStrategy(numPrisoners) {
 
-  var count = 1
-
   override def decideNewSwitchState(prisoner: Prisoner, state: RoomState): RoomState = {
 
-    // WIP
     var hasEveryoneVisited = false
-    val T = computeT(numPrisoners)
+    var newSwitchState = false
+    val TT = computeT(numPrisoners)
 
     if (prisoner.counter == 0) {
       prisoner.counter = 1
     }
-    val tBinary = prisoner.counter.toBinaryString
+    val Tbinary = prisoner.counter.toBinaryString
+    val m = computeM(state.dayCount, numPrisoners, TT)
+    val mm1 = computeM(state.dayCount - 1, numPrisoners, TT)
+    val Tm = if (m >= Tbinary.length) 0 else Tbinary.reverse.charAt(m).toString.toInt
+    //println("prisoner" + prisoner.id +" T = " + prisoner.counter + " Tbinary = " + Tbinary + " T(" + m + ") = " + Tm + " ")
+    val Pk = Math.pow(2, m).toInt
+    val Pkm1 = Math.pow(2, mm1).toInt
+    //println("bulb is worth " + Pk + " on day " + state.dayCount)
 
-    val newSwitchState =
-      if (prisoner.id == 1) { // the counter
-        if (!state.switchState) false
-        else {
-          count += 1
-          if (count == numPrisoners)
-            hasEveryoneVisited = true
-          false
-        }
-      } else { // not counter
-        if (!state.switchState) {
-          val newState = prisoner.counter == 0
-          prisoner.counter += 1
-          newState
-        } else true
-      }
+    if (state.switchState) { // switch is on
+      prisoner.counter += Pkm1
+      newSwitchState = false
+    }
+    if (prisoner.counter >= numPrisoners) {
+      hasEveryoneVisited = true
+    }
+    if (Tm == 1) {
+      newSwitchState = true
+      prisoner.counter -= Pk
+    }
+    //  Else, if Tm = 0, leave the bulb OFF and do nothing.
 
     state.nextState(newSwitchState, hasEveryoneVisited)
   }
