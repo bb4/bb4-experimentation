@@ -15,7 +15,7 @@ plugins {
 }
 description = 'Experimental apps and code'
 group = 'com.barrybecker4'
-version = '1.6'
+version = '1.7-SNAPSHOT'
 ext {
     archivesBaseName = 'bb4-experimentation'
     mainClass = 'com.barrybecker4.experimentation.axes.AxesSynch'
