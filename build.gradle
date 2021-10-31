@@ -2,9 +2,11 @@ buildscript {
     repositories {
         // retrieve the shared gradle build scripts from here
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
+        maven { url "https://oss.sonatype.org/content/repositories/releases" }
     }
+
     dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.6-SNAPSHOT'
+        classpath 'com.barrybecker4:bb4-gradle:1.6.5'
     }
 }
 
@@ -25,9 +27,9 @@ run {
 }
 
 dependencies {
-    compile 'com.barrybecker4:bb4-math:1.6-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-ui:1.6-SNAPSHOT'
-    compile 'com.barrybecker4:bb4-sound:1.6-SNAPSHOT'
+    compile 'com.barrybecker4:bb4-math:1.6'
+    compile 'com.barrybecker4:bb4-ui:1.6'
+    compile 'com.barrybecker4:bb4-sound:1.6'
 }
 
 task runGCF(type: JavaExec, dependsOn: classes) {

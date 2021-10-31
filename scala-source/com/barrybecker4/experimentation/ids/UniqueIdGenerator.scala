@@ -26,7 +26,7 @@ object UniqueIdGenerator extends App {
 
   private def printRandomId(): Unit = {
     val idNum = getRandomNumber(NUM_DIGITS_IN_ID)
-    val numLeadingZeros = NUM_DIGITS_IN_ID - Math.ceil(Math.log(idNum + 1) / LOG10).toInt
+    val numLeadingZeros = NUM_DIGITS_IN_ID - Math.ceil(Math.log(idNum.toDouble + 1) / LOG10).toInt
     if (!idSet.contains(idNum)) {
       var id = idNum.toString
       var i = 0

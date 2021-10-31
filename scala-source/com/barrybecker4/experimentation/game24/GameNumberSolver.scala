@@ -31,7 +31,7 @@ class GameNumberSolver(num: Float = 24.0f) {
   def findAllPossibleExpressions(digits: Seq[Int], parentIsTimesOrDivide: Boolean = false): Seq[Exp] = {
 
     if (digits.length == 1) {
-      Seq(Exp(digits.head, digits.head.toString))
+      Seq(Exp(digits.head.toFloat, digits.head.toString))
     }
     else {
       val partitions = getPartitions(digits)

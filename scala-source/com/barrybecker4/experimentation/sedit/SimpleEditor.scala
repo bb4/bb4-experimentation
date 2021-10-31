@@ -17,7 +17,7 @@ class SimpleEditor private[sedit](val rows: Int, val cols: Int) extends Scrollin
 
   def loadFile(fileName: String): Unit = {
     val source = Source.fromFile(fileName)
-    var text = source.getLines.mkString
+    var text = source.getLines().mkString
 
     if (SimpleEditor.COMPRESS)
       text = Base64Codec.decompress(text)

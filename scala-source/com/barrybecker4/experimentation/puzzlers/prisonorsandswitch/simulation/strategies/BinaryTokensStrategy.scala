@@ -42,7 +42,7 @@ object BinaryTokensStrategy {
       NLNN_FUN_CACHE(n)
     else {
       val ln_n = Math.log(n)
-      val result = Math.round(ln_n + Math.log(ln_n)) // floor?
+      val result = Math.round(ln_n + Math.log(ln_n)).toDouble // floor?
       // Math.round(n * (ln_n + Math.log(ln_n))) // the paper says this, but I think it is wrong
       NLNN_FUN_CACHE += n -> result
       result

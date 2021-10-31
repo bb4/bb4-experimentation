@@ -32,7 +32,7 @@ class TriangleNumber(var relPrime: Long) {
 
   private def getNumFactors(num: Long) = {
     var nod = 0
-    val sqrt = Math.sqrt(num).toInt
+    val sqrt = Math.sqrt(num.toDouble).toInt
     for (i <- 1 to sqrt)
       if (num % i == 0) nod += 2
 

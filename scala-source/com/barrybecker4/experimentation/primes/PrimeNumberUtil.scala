@@ -18,7 +18,7 @@ object PrimeNumberUtil {
     if (num == 2) return true
     if (num % 2 == 0) return false
     var i = 3
-    while (i <= Math.sqrt(num)) {
+    while (i <= Math.sqrt(num.toDouble)) {
       if (num % i == 0) return false
       i += 2
     }
@@ -35,7 +35,7 @@ object PrimeNumberUtil {
   def isPrimeUnder1B(num: Long): Boolean = {
     if (num == 2 || num == 3 || num == 5) return true
     if (num % 2 == 0 || num % 3 == 0 || num % 5 == 0) return false
-    val sqrt = Math.sqrt(num).toLong
+    val sqrt = Math.sqrt(num.toDouble).toLong
     var c = 0
     while (true) {
       var index = 0

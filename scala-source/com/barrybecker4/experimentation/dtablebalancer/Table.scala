@@ -49,7 +49,7 @@ class Table(val data: Array[Array[Int]], var width: Int, var height: Int) {
   updateMetaData()
 
   /** Copy constructor */
-  def this(table: Table) {
+  def this(table: Table) = {
     this(table.grid, table.width, table.height)
   }
 
