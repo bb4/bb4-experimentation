@@ -1,20 +1,19 @@
 /** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
 package com.barrybecker4.experimentation .axes
 
-import com.barrybecker4.ui.components.ResizableAppletPanel
 import com.barrybecker4.ui.util.GUIUtil
 import javax.swing._
 import java.awt._
 
 
-object AxesSynch extends App {
-  val simulator = new AxesSynch
+object AxesSynchApp extends App {
+  val simulator = new AxesSynchApp
   simulator.setPreferredSize(new Dimension(600, 400));
   simulator.pack()
   simulator.setVisible(true)
 }
 
-class AxesSynch() extends JFrame {
+class AxesSynchApp() extends JFrame {
   commonInit()
 
   def commonInit(): Unit = {

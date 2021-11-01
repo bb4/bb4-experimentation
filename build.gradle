@@ -55,7 +55,7 @@ task runOnesAndZerosPuzzler(type: JavaExec, dependsOn: classes) {
 
 task runAxesSynch(type: JavaExec, dependsOn: classes) {
     group = 'application'
-    main = 'com.barrybecker4.experimentation.axes.AxesSynch'
+    main = 'com.barrybecker4.experimentation.axes.AxesSynchApp'
     classpath = sourceSets.main.runtimeClasspath
 }
 
