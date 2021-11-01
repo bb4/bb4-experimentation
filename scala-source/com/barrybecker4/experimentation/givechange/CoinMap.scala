@@ -1,7 +1,5 @@
 package com.barrybecker4.experimentation.givechange
 
-import scala.collection.mutable
-
 
 /**
   * Map from coin to number of coins. Represents a collection of coins of different types.
@@ -23,12 +21,6 @@ class CoinMap  {
   }
 
   override def toString: String = {
-    /*
-    Coin.VALUES.filter(coin => m.contains(coin)).map(coin => {
-      val num = m(coin)
-      if (num > 0)
-        s"$num  ${if (this(coin) == 1) coin.name else coin.pluralName}"
-    }).mkString("   ") */
 
     val bldr = new StringBuilder
     for (i <- Coin.VALUES.length - 1 to 0 by -1) {

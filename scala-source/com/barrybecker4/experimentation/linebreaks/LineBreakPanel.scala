@@ -46,7 +46,7 @@ object LineBreakPanel {
   */
 class LineBreakPanel(text: String) extends JPanel {
 
-  private var textAttribute = new AttributedString(text, LineBreakPanel.ATTRIBUTE_MAP)
+  private val textAttribute = new AttributedString(text, LineBreakPanel.ATTRIBUTE_MAP)
   private val renderer = new LineBreakRenderer(textAttribute)
 
   override def paintComponent(g: Graphics): Unit = {

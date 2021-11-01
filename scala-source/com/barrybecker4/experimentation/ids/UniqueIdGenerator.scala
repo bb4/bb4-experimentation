@@ -11,10 +11,12 @@ import java.util.Random
   * @author Barry Becker
   */
 object UniqueIdGenerator extends App {
+
   /** Number of ids to generate  */
   private val NUM_IDS = 3530
   private val NUM_DIGITS_IN_ID = 9
   private val USE_DASHES = true
+
   /* Interval between dashes.  If 3, then id will be something like XXX-XXX-XXX-X   */
   private val DASH_INTERVAL = 3
   private val DASH = "-"

@@ -7,7 +7,6 @@ package com.barrybecker4.experimentation.pingpong
 class Player (var opponent: String, var table: PingPongTable) extends Runnable {
 
   override def run(): Unit = {
-    while (table.hit(opponent)) {
-    }
+    while (table.hit(opponent)) {}
   }
 }

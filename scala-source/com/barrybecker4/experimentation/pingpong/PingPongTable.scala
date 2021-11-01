@@ -40,7 +40,7 @@ class PingPongTable {
       playerToPlay = Some(opponent)
       // random pause before moving on
       ThreadUtil.sleep((500 * Math.random).toInt)
-      synchronized{notifyAll()}
+      synchronized{ notifyAll() }
     }
     else {
       val t1 = System.currentTimeMillis

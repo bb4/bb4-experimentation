@@ -43,8 +43,10 @@ class LineBreakRenderer(textAttribute: AttributedString) {
 
   // The LineBreakMeasurer used to line-break the paragraph.
   private var lineMeasurer: LineBreakMeasurer = _
+
   // index of the first character in the paragraph.
   private var paragraphStart = 0
+
   // index of the first character after the end of the paragraph.
   private var paragraphEnd = 0
 
