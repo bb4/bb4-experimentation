@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Opens 2 windows. The ServerFrame runs in a separate thread.
-  * Type text in the ClentFrame and send it to the server via a socket.
+  * Type text in the ClientFrame and send it to the server via a socket.
   */
 object SocketApp extends App {
 

@@ -27,9 +27,9 @@ run {
 }
 
 dependencies {
-    compile 'com.barrybecker4:bb4-math:1.6'
-    compile 'com.barrybecker4:bb4-ui:1.6'
-    compile 'com.barrybecker4:bb4-sound:1.6'
+    implementation 'com.barrybecker4:bb4-math:1.6'
+    implementation 'com.barrybecker4:bb4-ui:1.6'
+    implementation 'com.barrybecker4:bb4-sound:1.6'
 }
 
 task runGCF(type: JavaExec, dependsOn: classes) {

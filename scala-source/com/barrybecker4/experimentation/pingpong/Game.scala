@@ -15,7 +15,7 @@ object Game extends App {
 }
 
 class Game private() {
-  private var table = new PingPongTable
+  private val table = new PingPongTable
 
   private def startGame(players: Array[String], duration: Int): Unit = {
     val numPlayers = players.length
