@@ -6,12 +6,12 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.6.5'
+        classpath 'com.barrybecker4:bb4-gradle:1.7-SNAPSHOT'
     }
 }
 
 plugins {
-    id "com.github.maiflai.scalatest" version "0.25" // needed to run scala tests
+    id "com.github.maiflai.scalatest" version "0.31" // needed to run scala tests
 }
 description = 'Experimental apps and code'
 group = 'com.barrybecker4'
@@ -27,9 +27,10 @@ run {
 }
 
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:1.6'
-    implementation 'com.barrybecker4:bb4-ui:1.6'
-    implementation 'com.barrybecker4:bb4-sound:1.6'
+    implementation 'com.barrybecker4:bb4-math:1.7-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-ui:1.7-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-common:1.7-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-sound:1.7-SNAPSHOT'
 }
 
 task runGCF(type: JavaExec, dependsOn: classes) {

@@ -13,12 +13,13 @@ class BrutePrimeFactorizer extends PrimeFactorizer {
     var factors = List[BigInteger]()
     var newNum = new BigInteger(num.toString)
     var candidateFactor = TWO
-    while (candidateFactor.compareTo(newNum) <= 0 && newNum.compareTo(ONE) > 0)
+    while (candidateFactor.compareTo(newNum) <= 0 && newNum.compareTo(ONE) > 0) {
       if (newNum.mod(candidateFactor) == BigInteger.ZERO) {
         factors :+= candidateFactor
         newNum = newNum.divide(candidateFactor)
       }
-    else candidateFactor = candidateFactor.add(ONE)
+      else candidateFactor = candidateFactor.add(ONE)
+    }
     factors
   }
 }

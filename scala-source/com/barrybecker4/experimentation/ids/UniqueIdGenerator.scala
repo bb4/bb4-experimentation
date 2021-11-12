@@ -24,7 +24,7 @@ object UniqueIdGenerator extends App {
   private var idSet = Set[Long](NUM_IDS)
   private val RANDOM = new Random(30556)
 
-  do printRandomId() while (idSet.size < NUM_IDS)
+  while (idSet.size < NUM_IDS) printRandomId()
 
   private def printRandomId(): Unit = {
     val idNum = getRandomNumber(NUM_DIGITS_IN_ID)
