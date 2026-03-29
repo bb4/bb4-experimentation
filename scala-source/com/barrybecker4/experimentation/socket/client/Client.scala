@@ -1,6 +1,8 @@
 // Copyright by Barry G. Becker, 2000-2020. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.socket.client
 
+import scala.compiletime.uninitialized
+
 import java.io.{BufferedReader, IOException, InputStreamReader, PrintWriter}
 import java.net.{Socket, UnknownHostException}
 
@@ -15,8 +17,8 @@ object Client {
 
 class Client(host: String, port: Int) {
 
-  private var out: PrintWriter = _
-  private var in: BufferedReader = _
+  private var out: PrintWriter = uninitialized
+  private var in: BufferedReader = uninitialized
 
   try {
     val socket: Socket = new Socket(host, port)

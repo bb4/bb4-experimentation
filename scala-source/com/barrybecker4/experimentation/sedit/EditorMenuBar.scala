@@ -1,5 +1,7 @@
 package com.barrybecker4.experimentation.sedit
 
+import scala.compiletime.uninitialized
+
 import com.barrybecker4.ui.file.ExtensionFileFilter
 import com.barrybecker4.ui.file.FileChooserUtil
 import javax.swing._
@@ -13,7 +15,7 @@ import java.awt.event.ActionListener
   * @author Barry Becker
   */
 object EditorMenuBar {
-  private var chooser: JFileChooser = _
+  private var chooser: JFileChooser = uninitialized
   private val EXT = "sed"
 
   private def getFileChooser = {

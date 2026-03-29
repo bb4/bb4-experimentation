@@ -1,6 +1,8 @@
 // Copyright by Barry G. Becker, 2000-2020. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.socket.server
 
+import scala.compiletime.uninitialized
+
 import java.io.IOException
 import java.net.ServerSocket
 import com.barrybecker4.ui.components.Appendable
@@ -15,7 +17,7 @@ import javax.swing._
 class Server(textArea: Appendable, port: Int) extends JFrame {
 
   listenSocket()
-  private var server: ServerSocket = _
+  private var server: ServerSocket = uninitialized
 
   def listenSocket(): Unit = {
     try {

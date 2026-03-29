@@ -1,6 +1,8 @@
 // Copyright by Barry G. Becker, 2015 - 2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.dtablebalancer
 
+import scala.compiletime.uninitialized
+
 import com.barrybecker4.common.format.FormatUtil
 
 
@@ -32,8 +34,8 @@ object Table {
 class Table(val data: Array[Array[Int]], var width: Int, var height: Int) {
   private val grid = Table.makeCopy(data)
   private val size = grid.length
-  private var rowMeta: Array[DimensionMeta] = _
-  private var colMeta: Array[DimensionMeta] = _
+  private var rowMeta: Array[DimensionMeta] = uninitialized
+  private var colMeta: Array[DimensionMeta] = uninitialized
 
   /** The amount of area covered by each unit of grid value.
     * It is the inverse of the largest grid value to cell area ratio.
@@ -74,31 +76,36 @@ class Table(val data: Array[Array[Int]], var width: Int, var height: Int) {
 
   /** this needs to be called any time the meta data is modified */
   def updateMetaData(): Unit = {
-
-    for (i <- 0 until size) {
-      updateRowMeta(i)
-      updateColMeta(i)
-    }
-    var grandTotal: Double = 0
-    var max: Double = 0
-    var largestValueToGridAreaRatio: Double = 0
-
-    for (i <- 0 until size) {
-      grandTotal += rowMeta(i).getTotal
-      if (rowMeta(i).getMax > max) max = rowMeta(i).getMax
-      for (j <- 0 until size) {
-        val cellArea = rowMeta(i).getLength * colMeta(j).getLength
-        val valueToGridAreaRatio = grid(i)(j).toDouble / cellArea
-        //System.out.println("valueToGridRat=" + valueToGridAreaRatio);
-        if (valueToGridAreaRatio > largestValueToGridAreaRatio)
-          largestValueToGridAreaRatio = valueToGridAreaRatio
-      }
-    }
+    refreshAllRowAndColumnMeta()
+    val grandTotal = sumRowTotals()
+    val largestValueToGridAreaRatio = maxValueToGridAreaRatio()
     normalizationScale = 1.0 / largestValueToGridAreaRatio
     println("normScale=" + normalizationScale)
-    overallCoverage = grandTotal.toDouble * normalizationScale / (width * height)
+    overallCoverage = grandTotal * normalizationScale / (width * height)
     TableValidator.verifyDimensions(this)
   }
+
+  private def refreshAllRowAndColumnMeta(): Unit =
+    for i <- 0 until size do
+      updateRowMeta(i)
+      updateColMeta(i)
+
+  private def sumRowTotals(): Double =
+    var grandTotal = 0.0
+    for i <- 0 until size do grandTotal += rowMeta(i).getTotal
+    grandTotal
+
+  /** Largest ratio of cell weight to geometric cell area — drives normalization. */
+  private def maxValueToGridAreaRatio(): Double =
+    var largest = 0.0
+    for
+      i <- 0 until size
+      j <- 0 until size
+    do
+      val cellArea = rowMeta(i).getLength * colMeta(j).getLength
+      val valueToGridAreaRatio = grid(i)(j).toDouble / cellArea
+      if valueToGridAreaRatio > largest then largest = valueToGridAreaRatio
+    largest
 
   private def updateRowMeta(i: Int): Unit = {
     val row = new Array[Int](size)

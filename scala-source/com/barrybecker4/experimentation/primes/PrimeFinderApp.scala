@@ -2,16 +2,16 @@ package com.barrybecker4.experimentation.primes
 
 import com.barrybecker4.ui.application.ApplicationFrame
 
-
 /**
   * Find N prime numbers and display them.
   * @author Barry Becker
   */
-object PrimeFinderApp extends App {
+object PrimeFinderApp:
   /** the number of prime numbers to find */
   private val N = 200000
-  new PrimeFinderApp(N)
-}
+
+  def main(args: Array[String]): Unit =
+    new PrimeFinderApp(N)
 
 class PrimeFinderApp(num: Int) extends ApplicationFrame("Primer Number Finder") {
   override def createUI(): Unit = {

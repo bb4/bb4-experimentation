@@ -1,5 +1,7 @@
 package com.barrybecker4.experimentation.game24
 
+import scala.collection.mutable
+
 import Exp._
 
 object GameNumberSolver {
@@ -18,62 +20,63 @@ class GameNumberSolver(num: Float = 24.0f) {
     * @param digits 4 digits in range [1 - 9]
     * @return an expression that sums to 24
     */
-  def find24Expression(digits: IndexedSeq[Int]): String = {
+  def find24Expression(digits: IndexedSeq[Int]): String =
+    findAllPossibleExpressions(digits)
+      .find(_.result == num)
+      .map(_.expression)
+      .getOrElse("No solution")
 
-    for (exp <- findAllPossibleExpressions(digits)) {
-      if (exp.result == num)
-        return exp.expression
-    }
+  def findAllPossibleExpressions(digits: Seq[Int], parentIsTimesOrDivide: Boolean = false): Seq[Exp] =
 
-    "No solution"
-  }
+    if digits.length == 1 then Seq(Exp(digits.head.toFloat, digits.head.toString))
+    else
+      val out = mutable.ArrayBuffer.empty[Exp]
+      for partition <- getPartitions(digits) do
+        appendAdditiveCombinations(out, partition, parentIsTimesOrDivide)
+        appendMultiplicativeCombinations(out, partition)
+      out.toSeq
 
-  def findAllPossibleExpressions(digits: Seq[Int], parentIsTimesOrDivide: Boolean = false): Seq[Exp] = {
+  private def appendAdditiveCombinations(
+      out: mutable.ArrayBuffer[Exp],
+      partition: (Seq[Int], Seq[Int]),
+      parentIsTimesOrDivide: Boolean
+  ): Unit =
+    val (left, right) = partition
+    for
+      exp1 <- findAllPossibleExpressions(left)
+      exp2 <- findAllPossibleExpressions(right)
+    do
+      out += exp1.combine(exp2, PLUS, parentIsTimesOrDivide)
+      out += exp1.combine(exp2, MINUS, parentIsTimesOrDivide)
+      out += exp2.combine(exp1, MINUS, parentIsTimesOrDivide)
 
-    if (digits.length == 1) {
-      Seq(Exp(digits.head.toFloat, digits.head.toString))
-    }
-    else {
-      val partitions = getPartitions(digits)
+  private def appendMultiplicativeCombinations(
+      out: mutable.ArrayBuffer[Exp],
+      partition: (Seq[Int], Seq[Int])
+  ): Unit =
+    val (left, right) = partition
+    for
+      exp1 <- findAllPossibleExpressions(left, parentIsTimesOrDivide = true)
+      exp2 <- findAllPossibleExpressions(right, parentIsTimesOrDivide = true)
+    do
+      out += exp1.combine(exp2, TIMES)
+      out += exp1.combine(exp2, DIVIDE)
+      out += exp2.combine(exp1, DIVIDE)
 
-        var expList: Seq[Exp] = Seq()
-
-        for (partition <- partitions) {
-          for (exp1 <- findAllPossibleExpressions(partition._1)) {
-            for (exp2 <- findAllPossibleExpressions(partition._2)) {
-              expList :+= exp1.combine(exp2, PLUS, parentIsTimesOrDivide)
-              expList :+= exp1.combine(exp2, MINUS, parentIsTimesOrDivide)
-              expList :+= exp2.combine(exp1, MINUS, parentIsTimesOrDivide)
-            }
-          }
-
-          for (exp1 <- findAllPossibleExpressions(partition._1, parentIsTimesOrDivide = true)) {
-            for (exp2 <- findAllPossibleExpressions(partition._2, parentIsTimesOrDivide = true)) {
-              expList :+= exp1.combine(exp2, TIMES)
-              expList :+= exp1.combine(exp2, DIVIDE)
-              expList :+= exp2.combine(exp1, DIVIDE)
-            }
-          }
-        }
-      expList
-    }
-  }
-
-  def getPartitions(digits: Seq[Int]): Seq[Tuple2[Seq[Int], Seq[Int]]] = {
-    if (digits.length == 2)
-      Seq( ( Seq( digits.head), Seq(digits(1)) ) )
-    else if (digits.length == 3)
+  def getPartitions(digits: Seq[Int]): Seq[(Seq[Int], Seq[Int])] =
+    if digits.length == 2 then Seq((Seq(digits.head), Seq(digits(1))))
+    else if digits.length == 3 then
       Seq(
         (Seq(digits.head), digits.drop(1)),
         (Seq(digits(1)), Seq(digits.head, digits(2))),
         (Seq(digits(2)), digits.take(2))
       )
     else GameNumberSolver.PARTITION_INDICES.map(indices => partition(digits, indices))
-  }
 
-  def partition(digits: Seq[Int], indices: Seq[Int]): (Seq[Int], Seq[Int]) = {
-    def otherIndices = GameNumberSolver.ALL_INDICES.filter(i => !indices.contains(i))
-    (indices.collect(digits), otherIndices.collect(digits))
-  }
+  def partition(digits: Seq[Int], indices: Seq[Int]): (Seq[Int], Seq[Int]) =
+    val d = digits.toIndexedSeq
+    def valuesAt(idxs: Seq[Int]): Seq[Int] = idxs.map(d.apply)
+    val otherIndices = GameNumberSolver.ALL_INDICES.filterNot(indices.contains)
+    (valuesAt(indices), valuesAt(otherIndices))
 
 }

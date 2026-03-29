@@ -1,5 +1,7 @@
 package com.barrybecker4.experimentation.brian.simpleui
 
+import scala.compiletime.uninitialized
+
 import com.barrybecker4.ui.components.ScrollingTextArea
 import javax.swing._
 import java.awt._
@@ -19,7 +21,7 @@ class SimpleFrame() extends JFrame("Simple Frame") with ActionListener {
   setVisible(true)
 
   /** Used to show some text after a button is clicked */
-  private[simpleui] var taskOutput: ScrollingTextArea = _
+  private[simpleui] var taskOutput: ScrollingTextArea = uninitialized
 
   private def createContent = {
     val startButton = new JButton("Start")

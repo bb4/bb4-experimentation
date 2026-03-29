@@ -30,6 +30,8 @@
  */
 package com.barrybecker4.experimentation.linebreaks
 
+import scala.compiletime.uninitialized
+
 import java.awt.{Graphics, Graphics2D}
 import java.awt.font.LineBreakMeasurer
 import java.text.AttributedString
@@ -42,7 +44,7 @@ import java.text.AttributedString
 class LineBreakRenderer(textAttribute: AttributedString) {
 
   // The LineBreakMeasurer used to line-break the paragraph.
-  private var lineMeasurer: LineBreakMeasurer = _
+  private var lineMeasurer: LineBreakMeasurer = uninitialized
 
   // index of the first character in the paragraph.
   private var paragraphStart = 0

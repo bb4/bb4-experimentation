@@ -1,5 +1,7 @@
 package com.barrybecker4.experimentation.factorize.factorizers
 
+import scala.compiletime.uninitialized
+
 import java.math.BigInteger
 
 import org.scalatest.funsuite.AnyFunSuite
@@ -20,7 +22,7 @@ object AbstractPrimeFactorizerSuite  {
   */
 abstract class AbstractPrimeFactorizerSuite extends AnyFunSuite with BeforeAndAfter {
 
-  protected var factorizer: PrimeFactorizer = _
+  protected var factorizer: PrimeFactorizer = uninitialized
 
   before {
     factorizer = createInstance()

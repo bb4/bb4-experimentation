@@ -1,6 +1,8 @@
 // Copyright by Barry G. Becker, 2000-2020. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.socket.server
 
+import scala.compiletime.uninitialized
+
 import java.awt._
 import java.awt.event.{WindowAdapter, WindowEvent}
 import com.barrybecker4.ui.components.ScrollingTextArea
@@ -24,7 +26,7 @@ case class ServerFrame(port: Int) extends JFrame {
   pack()
   setVisible(true)
 
-  private var textArea: ScrollingTextArea = _
+  private var textArea: ScrollingTextArea = uninitialized
   val server = new Server(textArea, port)
 
   private def initUI(): Unit = {

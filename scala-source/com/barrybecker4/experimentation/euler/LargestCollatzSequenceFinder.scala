@@ -3,7 +3,6 @@ package com.barrybecker4.experimentation.euler
 
 import com.barrybecker4.common.format.FormatUtil.formatNumber
 
-
 /**
   * From project Euler:
   * The following iterative sequence is defined for the set of positive integers:
@@ -20,16 +19,18 @@ import com.barrybecker4.common.format.FormatUtil.formatNumber
   * Which starting number, under one million, produces the longest chain?
   * @author Barry Becker
   */
-object LargestCollatzSequenceFinder extends App {
+object LargestCollatzSequenceFinder:
+  def main(args: Array[String]): Unit =
     val finder = new LargestCollatzSequenceFinder
     val limit = 1000000
     val startTime = System.currentTimeMillis
     val startingNum = finder.getNumWithLongestSequence(limit)
     println("elapsed time = " + (System.currentTimeMillis - startTime))
     val numTerms = finder.getNumTerms(startingNum)
-    println("The number with the longest Collatz sequence that is under " + formatNumber(limit) +
-      " is " + formatNumber(startingNum) + ". It has " + numTerms + " terms.")
-}
+    println(
+      "The number with the longest Collatz sequence that is under " + formatNumber(limit) +
+        " is " + formatNumber(startingNum) + ". It has " + numTerms + " terms."
+    )
 
 class LargestCollatzSequenceFinder {
   private var cache = Map[Long, Long]()

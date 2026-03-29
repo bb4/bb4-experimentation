@@ -1,17 +1,17 @@
 /** Copyright by Barry G. Becker, 2000-2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT  */
-package com.barrybecker4.experimentation .axes
+package com.barrybecker4.experimentation.axes
 
 import com.barrybecker4.ui.util.GUIUtil
 import javax.swing._
 import java.awt._
 
 
-object AxesSynchApp extends App {
-  val simulator = new AxesSynchApp
-  simulator.setPreferredSize(new Dimension(600, 400));
-  simulator.pack()
-  simulator.setVisible(true)
-}
+object AxesSynchApp:
+  def main(args: Array[String]): Unit =
+    val simulator = new AxesSynchApp
+    simulator.setPreferredSize(new Dimension(600, 400))
+    simulator.pack()
+    simulator.setVisible(true)
 
 class AxesSynchApp() extends JFrame {
   commonInit()

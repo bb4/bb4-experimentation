@@ -9,29 +9,22 @@ package com.barrybecker4.experimentation.threenumbers
   * a - 3 - 4 to see how it compares to a - 4 - 3
   * for various values of a.
   */
-object ThreeNumbers extends App {
+object ThreeNumbers:
 
-  def diff(a: Float, b: Float = 3.0f, c: Float = 0.4f): Unit = {
+  def diff(a: Float, b: Float = 3.0f, c: Float = 0.4f): Unit =
     val first = a - b - c
     val second = a - c - b
     val s = s"(a - b - c) = $first    (a - c - b) = $second    for $a"
-    println(s + (if (first == second) "    matched!!!" else ""))
-  }
+    println(s + (if first == second then "    matched!!!" else ""))
 
-  for (i <- Range.BigDecimal(3.0,  3.5, 0.001)) {
-    diff(i.toFloat)
-  }
+  def main(args: Array[String]): Unit =
+    for i <- Range.BigDecimal(3.0, 3.5, 0.001) do diff(i.toFloat)
 
-  println("\n")
+    println("\n")
 
-  // 1.0 - 2.3 matched. Starts not matching at 2.4. Starts matching again at 5.4
-  for (i <- Range.BigDecimal(1.0,  7.0, 0.1)) {
-    diff(i.toFloat)
-  }
+    // 1.0 - 2.3 matched. Starts not matching at 2.4. Starts matching again at 5.4
+    for i <- Range.BigDecimal(1.0, 7.0, 0.1) do diff(i.toFloat)
 
-  println("\n")
+    println("\n")
 
-  for (i <-Range.BigDecimal(0, 100, 10.0)) {
-    diff(i.toFloat)
-  }
-}
+    for i <- Range.BigDecimal(0, 100, 10.0) do diff(i.toFloat)

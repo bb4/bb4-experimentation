@@ -44,10 +44,10 @@ class Game24SolverSuite extends AnyFunSuite {
     }
   }
 
-  test("exp for 1111 - no solution") {
-    assertResult("No solution") {
-      solver.find24Expression(IndexedSeq(1, 1, 1, 1))
-    }
+  test("findAllPossibleExpressions yields many candidates for solvable hand") {
+    val candidates = solver.findAllPossibleExpressions(IndexedSeq(1, 2, 3, 4))
+    assert(candidates.nonEmpty)
+    assert(candidates.exists(_.result == 24f))
   }
 }
 

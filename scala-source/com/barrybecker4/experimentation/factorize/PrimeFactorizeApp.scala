@@ -10,10 +10,10 @@ import com.barrybecker4.experimentation.factorize.factorizers.{BrutePrimeFactori
   * Find the prime factors of a positive integer.
   * @author Barry Becker
   */
-object PrimeFactorizeApp extends App {
+object PrimeFactorizeApp:
 
   /** @param num number to show the prime factors for.*/
-  def showPrimeFactors(num: BigInteger, factorizer: PrimeFactorizer): Unit = {
+  def showPrimeFactors(num: BigInteger, factorizer: PrimeFactorizer): Unit =
     val prof = new SimpleProfiler
     prof.start()
     println(s"The prime factors (found using ${factorizer.getClass.getSimpleName}) are ...")
@@ -21,19 +21,16 @@ object PrimeFactorizeApp extends App {
     prof.stop()
     prof.print()
     println()
-  }
 
-  println("\n==================================================================\n")
-  // for now, just loops forever
-  // Try with a number like 234908237409234691
-  while (true) {
-    val num = Input.getBigInteger("Enter a positive integer to find the prime factors of:")
-    if (!(num.signum > 0)) println("must be positive.")
-    else {
-      showPrimeFactors(num, new QuickPrimeFactorizer)
-      showPrimeFactors(num, new RecursivePrimeFactorizer)
-      showPrimeFactors(num, new BrutePrimeFactorizer)
-    }
-    println()
-  }
-}
+  def main(args: Array[String]): Unit =
+    println("\n==================================================================\n")
+    // for now, just loops forever
+    // Try with a number like 234908237409234691
+    while true do
+      val num = Input.getBigInteger("Enter a positive integer to find the prime factors of:")
+      if num.signum <= 0 then println("must be positive.")
+      else
+        showPrimeFactors(num, new QuickPrimeFactorizer)
+        showPrimeFactors(num, new RecursivePrimeFactorizer)
+        showPrimeFactors(num, new BrutePrimeFactorizer)
+      println()

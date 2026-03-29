@@ -7,14 +7,13 @@ import com.barrybecker4.experimentation.readnumber.NumberTranslator
 /**
   * @author Barry Becker
   */
-object NumberLetterCounter extends App {
-  var sum = 0
-  val translator = new NumberTranslator
-  for (i <- 1 to  1000) {
-    val numberStr = translator.translateToBritish(BigInteger.valueOf(i))
-    val numNoSpaces = numberStr.replace(" ", "")
-    println(numberStr + " === " + numNoSpaces + "   num=" + numNoSpaces.length)
-    sum += numNoSpaces.length
-  }
-  println("Total num letters = " + sum)
-}
+object NumberLetterCounter:
+  def main(args: Array[String]): Unit =
+    var sum = 0
+    val translator = new NumberTranslator
+    for i <- 1 to 1000 do
+      val numberStr = translator.translateToBritish(BigInteger.valueOf(i))
+      val numNoSpaces = numberStr.replace(" ", "")
+      println(numberStr + " === " + numNoSpaces + "   num=" + numNoSpaces.length)
+      sum += numNoSpaces.length
+    println("Total num letters = " + sum)

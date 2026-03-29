@@ -1,99 +1,84 @@
-buildscript {
-    repositories {
-        // retrieve the shared gradle build scripts from here
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/"}
-        maven { url "https://oss.sonatype.org/content/repositories/releases" }
-    }
-
-    dependencies {
-        classpath 'com.barrybecker4:bb4-gradle:1.7-SNAPSHOT'
-    }
-}
-
 plugins {
-    id "com.github.maiflai.scalatest" version "0.31" // needed to run scala tests
+    id 'com.barrybecker4.bb4.scala-library' version '2.0-SNAPSHOT'
+    id 'com.barrybecker4.bb4.publish' version '2.0-SNAPSHOT'
+    id 'com.barrybecker4.bb4.application' version '2.0-SNAPSHOT'
 }
+
 description = 'Experimental apps and code'
 group = 'com.barrybecker4'
-version = '1.7-SNAPSHOT'
-ext {
-    archivesBaseName = 'bb4-experimentation'
-    mainClass = 'com.barrybecker4.experimentation.axes.AxesSynch'
-}
-apply from: project.buildscript.classLoader.getResource('bb4.gradle').toURI()
+version = '2.0-SNAPSHOT'
 
-run {
-    standardInput = System.in
+bb4 {
+    archivesBaseName.set('bb4-experimentation')
+    mainClass.set('com.barrybecker4.experimentation.axes.AxesSynchApp')
 }
 
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:1.7-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-ui:1.7-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-common:1.7-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-sound:1.7-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-math:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-ui:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-common:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-sound:2.0-SNAPSHOT'
 }
 
 task runGCF(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
-    main = 'com.barrybecker4.experimentation.gcf.GcfProgram'
+    mainClass = 'com.barrybecker4.experimentation.gcf.GcfProgram'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runFactorizeApp(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
-    main = 'com.barrybecker4.experimentation.factorize.PrimeFactorizeApp'
+    mainClass = 'com.barrybecker4.experimentation.factorize.PrimeFactorizeApp'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runOnesAndZerosPuzzler(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
-    main = 'com.barrybecker4.experimentation.puzzlers.OnesAndZerosPuzzler'
+    mainClass = 'com.barrybecker4.experimentation.puzzlers.OnesAndZerosPuzzler'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runAxesSynch(type: JavaExec, dependsOn: classes) {
     group = 'application'
-    main = 'com.barrybecker4.experimentation.axes.AxesSynchApp'
+    mainClass = 'com.barrybecker4.experimentation.axes.AxesSynchApp'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runReadNumber(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
-    main = 'com.barrybecker4.experimentation.readnumber.ReadNumberApp'
+    mainClass = 'com.barrybecker4.experimentation.readnumber.ReadNumberApp'
     classpath = sourceSets.main.runtimeClasspath
 }
 
 task runSimpleEditor(type: JavaExec, dependsOn: classes) {
     group = 'application'
-    main = 'com.barrybecker4.experimentation.sedit.SimpleEditorFrame'
+    mainClass = 'com.barrybecker4.experimentation.sedit.SimpleEditorFrame'
     classpath = sourceSets.main.runtimeClasspath
-    jvmArgs = ["-ea"]
+    jvmArgs = ['-ea']
 }
 
 task runNativeRender(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
-    main = 'com.barrybecker4.experimentation.nativerender.NativeRender'
+    mainClass = 'com.barrybecker4.experimentation.nativerender.NativeRender'
     classpath = sourceSets.main.runtimeClasspath
-    jvmArgs = ["-ea"]
+    jvmArgs = ['-ea']
 }
 
 task runXMLViewer(type: JavaExec, dependsOn: classes) {
     standardInput = System.in
     group = 'application'
-    main = 'com.barrybecker4.ui.xmlviewer.DomEcho'
+    mainClass = 'com.barrybecker4.ui.xmlviewer.DomEcho'
     classpath = sourceSets.main.runtimeClasspath
     args = ['scala-source/com/barrybecker4/experimentation/yugioh/yugiohCards.xml']
 }
 
 task runLineBreaks(type: JavaExec, dependsOn: classes) {
     group = 'application'
-    main = 'com.barrybecker4.experimentation.linebreaks.LineBreakSample'
+    mainClass = 'com.barrybecker4.experimentation.linebreaks.LineBreakSample'
     classpath = sourceSets.main.runtimeClasspath
 }
-
-apply from: project.buildscript.classLoader.getResource('bb4-publish.gradle').toURI()

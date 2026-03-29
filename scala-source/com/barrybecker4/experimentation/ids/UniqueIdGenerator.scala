@@ -10,7 +10,7 @@ import java.util.Random
   *
   * @author Barry Becker
   */
-object UniqueIdGenerator extends App {
+object UniqueIdGenerator:
 
   /** Number of ids to generate  */
   private val NUM_IDS = 3530
@@ -21,40 +21,36 @@ object UniqueIdGenerator extends App {
   private val DASH_INTERVAL = 3
   private val DASH = "-"
   private val LOG10 = Math.log(10.0)
-  private var idSet = Set[Long](NUM_IDS)
   private val RANDOM = new Random(30556)
 
-  while (idSet.size < NUM_IDS) printRandomId()
+  def main(args: Array[String]): Unit =
+    var idSet = Set.empty[Long]
+    while idSet.size < NUM_IDS do idSet = tryAddUniqueId(idSet)
 
-  private def printRandomId(): Unit = {
+  private def tryAddUniqueId(idSet: Set[Long]): Set[Long] =
     val idNum = getRandomNumber(NUM_DIGITS_IN_ID)
-    val numLeadingZeros = NUM_DIGITS_IN_ID - Math.ceil(Math.log(idNum.toDouble + 1) / LOG10).toInt
-    if (!idSet.contains(idNum)) {
+    if idSet.contains(idNum) then idSet
+    else
+      val numLeadingZeros = NUM_DIGITS_IN_ID - Math.ceil(Math.log(idNum.toDouble + 1) / LOG10).toInt
       var id = idNum.toString
       var i = 0
-      while (i < numLeadingZeros) {
+      while i < numLeadingZeros do
         id = "0" + id
         i += 1
-      }
-      if (USE_DASHES) id = addDashes(id)
-      println(id)
-      idSet += idNum
-    }
-  }
+      val formatted = if USE_DASHES then addDashes(id) else id
+      println(formatted)
+      idSet + idNum
 
-  private def addDashes(id: String) = {
+  private def addDashes(id: String): String =
     val numDashes = (NUM_DIGITS_IN_ID - 1) / DASH_INTERVAL
     var j = numDashes
     var newId = id
-    while (j > 0) {
+    while j > 0 do
       val pos = j * DASH_INTERVAL
       newId = newId.substring(0, pos) + DASH + newId.substring(pos)
       j -= 1
-    }
     newId
-  }
 
   /** @return a number between 1 and pow(10, NUM_DIGITS)-1 */
-  private def getRandomNumber(numDigits: Int) =
+  private def getRandomNumber(numDigits: Int): Long =
     Math.floor((Math.pow(10, numDigits) - 1.0) * RANDOM.nextDouble).toLong + 1
-}

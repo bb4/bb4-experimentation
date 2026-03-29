@@ -7,19 +7,14 @@ package com.barrybecker4.experimentation.gcf
   * @author Barry Becker
   */
 final class BruteGcfSolver extends GcfSolver {
-  override def findSolution(a: Long, b: Long): Long = {
-    var aa = a
-    var bb = b
-    if (a > b) {
-      aa = b
-      bb = a
-    }
-
-    var i = aa
-    while (i > 1) {
-      if ((aa % i == 0) && (bb % i == 0)) return i
-      i -= 1
-    }
-    1
-  }
+  override def findSolution(a: Long, b: Long): Long =
+    if a == 0 then math.abs(b)
+    else if b == 0 then math.abs(a)
+    else
+      val (small, big) = if a <= b then (a, b) else (b, a)
+      Iterator
+        .iterate(small)(_ - 1)
+        .takeWhile(_ > 1)
+        .find(i => small % i == 0 && big % i == 0)
+        .getOrElse(1L)
 }

@@ -1,6 +1,6 @@
 package com.barrybecker4.experimentation.dtablebalancer
 
-import org.junit.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 import AllTestCasesSuite.TOL
 import org.scalatest.funsuite.AnyFunSuite
 
@@ -15,12 +15,12 @@ class AllTestCasesSuite extends AnyFunSuite {
   test("runAllTestCases") {
 
      for (tc <- TestCases.CASES) {
-       assertEquals(tc.name + "\nWrong normalization scale\n", tc.expNormScale, tc.table.getNormalizationScale, TOL)
-       assertEquals(tc.name + "\nWrong overall coverage for " + tc.table + "\n", tc.expInitialOverallRatio, tc.table.getOverallCoverage, TOL)
+       assertEquals(tc.expNormScale, tc.table.getNormalizationScale, TOL, tc.name + "\nWrong normalization scale\n")
+       assertEquals(tc.expInitialOverallRatio, tc.table.getOverallCoverage, TOL, tc.name + "\nWrong overall coverage for " + tc.table + "\n")
 
        tc.balancer.doBalancing(tc.table)
 
-       assertEquals(tc.name + "\nWrong balanced coverage for " + tc.table + "\n", tc.expBalancedRatio, tc.table.getOverallCoverage, TOL)
+       assertEquals(tc.expBalancedRatio, tc.table.getOverallCoverage, TOL, tc.name + "\nWrong balanced coverage for " + tc.table + "\n")
      }
   }
 }

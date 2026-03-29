@@ -22,7 +22,7 @@ import com.barrybecker4.common.util.Input
   *
   * @author Barry Becker
   */
-object ChangeCombinations extends App {
+object ChangeCombinations:
   /** maximum amount of money (in cents) to give change for. */
   private val MAX_AMOUNT = 999L
 
@@ -30,23 +30,23 @@ object ChangeCombinations extends App {
     * @param coinMap        coins represented by change so far
     * @param centsRemaining number of cents between 0 and MAX_AMT
     */
-  def showChangeCombinationsFor(coinMap: CoinMap, centsRemaining: Int): Unit = { // base case of recursion
-    if (centsRemaining == 0) println(coinMap)
-    for (i <- Coin.VALUES.length - 1 to 0 by -1) {
+  def showChangeCombinationsFor(coinMap: CoinMap, centsRemaining: Int): Unit =
+    if centsRemaining == 0 then println(coinMap)
+    for i <- Coin.VALUES.length - 1 to 0 by -1 do
       val coin = Coin.VALUES(i)
       val numCoins = centsRemaining / coin.worthInPennies
-      if (numCoins > 0) {
+      if numCoins > 0 then
         coinMap.add(coin, numCoins)
         showChangeCombinationsFor(coinMap, centsRemaining - numCoins * coin.worthInPennies)
         coinMap.remove(coin, numCoins)
-      }
-    }
-  }
 
-  while (true) {
-    val cents = Input.getLong("Enter a number of cents for which to compute change combinations\n" +
-      "[0 - " + FormatUtil.formatNumber(MAX_AMOUNT) + "]:", 0, MAX_AMOUNT)
-    println("The change possibilities are ...")
-    showChangeCombinationsFor(new CoinMap, cents.toInt)
-  }
-}
+  def main(args: Array[String]): Unit =
+    while true do
+      val cents = Input.getLong(
+        "Enter a number of cents for which to compute change combinations\n" +
+          "[0 - " + FormatUtil.formatNumber(MAX_AMOUNT) + "]:",
+        0,
+        MAX_AMOUNT
+      )
+      println("The change possibilities are ...")
+      showChangeCombinationsFor(new CoinMap, cents.toInt)

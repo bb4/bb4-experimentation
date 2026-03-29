@@ -2,18 +2,17 @@ package com.barrybecker4.experimentation.euler
 
 import java.math.BigInteger
 
-
 /**
   * @author Barry Becker
   */
-object PowerDigitSum extends App {
+object PowerDigitSum:
+  def main(args: Array[String]): Unit =
     val base = 2
     val exp = 1000
     val pds = new PowerDigitSum(base, exp)
     println("Power digit sum of " + base + " ^ " + exp + " is " + pds.getSum)
-}
 
-class PowerDigitSum (var base: Int, var exp: Int) {
+class PowerDigitSum(var base: Int, var exp: Int) {
 
   def getSum: Int = {
     val result = getNumber

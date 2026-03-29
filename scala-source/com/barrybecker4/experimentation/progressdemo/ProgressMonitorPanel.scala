@@ -1,5 +1,7 @@
 package com.barrybecker4.experimentation.progressdemo
 
+import scala.compiletime.uninitialized
+
 import com.barrybecker4.ui.components.ScrollingTextArea
 import javax.swing.BorderFactory
 import javax.swing.JButton
@@ -23,10 +25,10 @@ object ProgressMonitorPanel {
 class ProgressMonitorPanel() extends JPanel {
   private var task = new LongTask(ProgressMonitorPanel.TASK_LENGTH)
   createUI()
-  private var progressMonitor: ProgressMonitor = _
-  private var timer: Timer = _
-  private var startButton: JButton = _
-  private var taskOutput: ScrollingTextArea = _
+  private var progressMonitor: ProgressMonitor = uninitialized
+  private var timer: Timer = uninitialized
+  private var startButton: JButton = uninitialized
+  private var taskOutput: ScrollingTextArea = uninitialized
 
   protected def createUI(): Unit = {
     startButton = new JButton("Start")

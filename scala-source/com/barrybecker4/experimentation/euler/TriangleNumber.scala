@@ -1,14 +1,13 @@
 package com.barrybecker4.experimentation.euler
 
-object TriangleNumber extends App {
+object TriangleNumber:
+  def main(args: Array[String]): Unit =
     var num = 10
     var tnum = new TriangleNumber(num)
-    while (tnum.getNumFactors < 500) {
+    while tnum.getNumFactors < 500 do
       num += 1
       tnum = new TriangleNumber(num)
-    }
     println(s"The $num the triangle number had a value of ${tnum.getValue} with ${tnum.getNumFactors} factors.")
-}
 
 /**
   * The first of two adjacent relatively prime numbers that can be used to determine the value using

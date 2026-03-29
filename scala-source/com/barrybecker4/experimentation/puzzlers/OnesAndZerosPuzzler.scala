@@ -3,7 +3,6 @@ package com.barrybecker4.experimentation.puzzlers
 import java.math.BigInteger
 import com.barrybecker4.common.util.Input
 
-
 /**
  * Find the remainders of dividing a specified number into a sequence
  * of numbers consisting of repeated ones.
@@ -41,52 +40,41 @@ import com.barrybecker4.common.util.Input
  *
  * @author Barry Becker
  */
-object OnesAndZerosPuzzler extends App {
+object OnesAndZerosPuzzler:
 
-  val LIMIT = 10000L
-  val MILLION = new BigInteger("1000000")
+  val LIMIT: Long = 10000L
+  private val MILLION = new BigInteger("1000000")
 
-
-  def getOnesNumber(numOfOnes: Int): BigInteger = {
+  def getOnesNumber(numOfOnes: Int): BigInteger =
     new BigInteger("1" * numOfOnes)
-  }
 
   /** @param num number to show the remainders for.*/
-  def showRemainders(num: BigInteger): Unit = {
-    val limit: Int = Math.min(LIMIT, num.longValue()).toInt
-    var ctMap: Map[BigInteger, Int] = Map()
+  def showRemainders(num: BigInteger): Unit =
+    val limit: Int = Math.min(LIMIT, num.longValue).toInt
+    var ctMap: Map[BigInteger, Int] = Map.empty
 
-    for (i <- 1 to limit) {
+    for i <- 1 to limit do
       val onesNumber = getOnesNumber(i)
-      val onesNumStr = if (onesNumber.compareTo(MILLION) < 0) onesNumber.toString() else s"$i ones"
+      val onesNumStr = if onesNumber.compareTo(MILLION) < 0 then onesNumber.toString else s"$i ones"
       val remainder = onesNumber.divideAndRemainder(num)(1)
-
-      if (ctMap.contains(remainder))
-        ctMap += remainder -> (ctMap(remainder) + 1)
-      else
-        ctMap += remainder -> 1
+      ctMap = ctMap.updatedWith(remainder)(_.map(_ + 1).orElse(Some(1)))
 
       println(s"$i) rem: $remainder for $onesNumStr")
-    }
+
     println()
     val sortedKeys = ctMap.keySet.toList.sorted
     println(sortedKeys.map(key => s"$key : ${ctMap(key)}").mkString("\n"))
 
-  }
-
-  println("\n==================================================================\n")
-  // Given a number N, find the remainders of dividing it into the following sequence of numbers
-  // 1) 1
-  // 2) 11
-  // 3) 111
-  // ...
-  // N) <N ones>
-  while (true) {
-    val num = Input.getBigInteger("Enter a positive integer to find remainders for:")
-    if (!(num.signum > 0)) println("must be positive.")
-    else {
-      showRemainders(num)
-    }
-    println()
-  }
-}
+  def main(args: Array[String]): Unit =
+    println("\n==================================================================\n")
+    // Given a number N, find the remainders of dividing it into the following sequence of numbers
+    // 1) 1
+    // 2) 11
+    // 3) 111
+    // ...
+    // N) <N ones>
+    while true do
+      val num = Input.getBigInteger("Enter a positive integer to find remainders for:")
+      if num.signum <= 0 then println("must be positive.")
+      else showRemainders(num)
+      println()

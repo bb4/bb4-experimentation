@@ -2,10 +2,9 @@ package com.barrybecker4.experimentation.progressdemo
 
 import com.barrybecker4.ui.application.ApplicationFrame
 
-
-object ProgressMonitorDemo extends App {
-  new ProgressMonitorDemo
-}
+object ProgressMonitorDemo:
+  def main(args: Array[String]): Unit =
+    new ProgressMonitorDemo
 
 /**
   * Demonstrates proper use of scala ProgressMonitor for long running tasks.
