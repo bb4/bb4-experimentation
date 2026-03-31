@@ -8,6 +8,7 @@ import com.barrybecker4.common.util.Input
 object Game24App:
 
   def main(args: Array[String]): Unit =
+    println("Given 4 one digit numbers, we will find an expression, using only +,-,*,/, that evaluates to 24. ")
     val num = Input.getBigInteger("Enter 4 digits, where each is in [1-9]: ")
     val digits = num.toString.map(c => c.asDigit)
 
