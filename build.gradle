@@ -1,12 +1,12 @@
 plugins {
-    id 'com.barrybecker4.bb4.scala-library' version '2.0-SNAPSHOT'
-    id 'com.barrybecker4.bb4.publish' version '2.0-SNAPSHOT'
-    id 'com.barrybecker4.bb4.application' version '2.0-SNAPSHOT'
+    id 'com.barrybecker4.bb4.scala-library' version '2.0.0'
+    id 'com.barrybecker4.bb4.publish' version '2.0.0'
+    id 'com.barrybecker4.bb4.application' version '2.0.0'
 }
 
 description = 'Experimental apps and code'
 group = 'com.barrybecker4'
-version = '2.0-SNAPSHOT'
+version = '2.0.0'
 
 bb4 {
     archivesBaseName.set('bb4-experimentation')
@@ -14,10 +14,10 @@ bb4 {
 }
 
 dependencies {
-    implementation 'com.barrybecker4:bb4-math:2.0-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-ui:2.0-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-common:2.0-SNAPSHOT'
-    implementation 'com.barrybecker4:bb4-sound:2.0-SNAPSHOT'
+    implementation 'com.barrybecker4:bb4-math:2.0.0'
+    implementation 'com.barrybecker4:bb4-ui:2.0.0'
+    implementation 'com.barrybecker4:bb4-common:2.0.0'
+    implementation 'com.barrybecker4:bb4-sound:2.0.0'
 }
 
 task runGCF(type: JavaExec, dependsOn: classes) {
