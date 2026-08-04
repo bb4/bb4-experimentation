@@ -5,6 +5,5 @@ package com.barrybecker4.experimentation.gcf
   * Interface for greatest common factor solvers.
   * @author Barry Becker
   */
-trait GcfSolver {
+trait GcfSolver:
   def findSolution(a: Long, b: Long): Long
-}
