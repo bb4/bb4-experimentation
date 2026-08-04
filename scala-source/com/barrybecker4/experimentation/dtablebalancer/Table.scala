@@ -1,8 +1,6 @@
 // Copyright by Barry G. Becker, 2015 - 2018. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.dtablebalancer
 
-import scala.compiletime.uninitialized
-
 import com.barrybecker4.common.format.FormatUtil
 
 
@@ -34,8 +32,8 @@ object Table {
 class Table(val data: Array[Array[Int]], var width: Int, var height: Int) {
   private val grid = Table.makeCopy(data)
   private val size = grid.length
-  private var rowMeta: Array[DimensionMeta] = uninitialized
-  private var colMeta: Array[DimensionMeta] = uninitialized
+  private val rowMeta: Array[DimensionMeta] = Array.ofDim[DimensionMeta](size)
+  private val colMeta: Array[DimensionMeta] = Array.ofDim[DimensionMeta](size)
 
   /** The amount of area covered by each unit of grid value.
     * It is the inverse of the largest grid value to cell area ratio.
@@ -64,8 +62,6 @@ class Table(val data: Array[Array[Int]], var width: Int, var height: Int) {
   def getHeight: Int = height
 
   private def initializeMeta(): Unit = {
-    rowMeta = Array.ofDim[DimensionMeta](size)
-    colMeta = Array.ofDim[DimensionMeta](size)
     val w = this.width.toDouble / size
     val h = this.height.toDouble / size
     for (i <- grid.indices) {
