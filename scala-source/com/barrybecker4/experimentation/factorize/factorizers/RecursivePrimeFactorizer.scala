@@ -37,21 +37,18 @@ class RecursivePrimeFactorizer extends PrimeFactorizer {
     * @param num number to square root
     * @return the largest x such that x squared is <= num
     */
-  def findIntegerSquareRoot(num: BigInteger): BigInteger = {
+  def findIntegerSquareRoot(num: BigInteger): BigInteger =
     // throw out the last len/2 - 1 digits and use the result as our initial guess.
-    val origNum: BigDecimal = new BigDecimal(num)
-    val numStr: String = num.toString
-    val numDigits: Int = numStr.length
-    val mc: MathContext = new MathContext(5 + numDigits)
-    val initialGuessStr: String = numStr.substring(0, (numDigits + 2) / 2)
-    var xk: BigDecimal = new BigDecimal(initialGuessStr)
-    var xkp1: BigDecimal = null
+    val origNum = new BigDecimal(num)
+    val numStr = num.toString
+    val numDigits = numStr.length
+    val mc = new MathContext(5 + numDigits)
+    val initialGuessStr = numStr.substring(0, (numDigits + 2) / 2)
+    var xk = new BigDecimal(initialGuessStr)
     var diff: BigDecimal = TWO_DEC
-    while (diff.compareTo(BigDecimal.ONE) >= 0) {
-      xkp1 = xk.add(origNum.divide(xk, mc)).divide(TWO_DEC, mc)
+    while diff.compareTo(BigDecimal.ONE) >= 0 do
+      val xkp1 = xk.add(origNum.divide(xk, mc)).divide(TWO_DEC, mc)
       diff = xkp1.subtract(xk).abs
       xk = xkp1
-    }
-    xkp1.toBigInteger
-  }
+    xk.toBigInteger
 }
