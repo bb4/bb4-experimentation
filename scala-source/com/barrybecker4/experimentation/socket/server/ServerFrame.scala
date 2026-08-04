@@ -1,8 +1,6 @@
 // Copyright by Barry G. Becker, 2000-2020. Licensed under MIT License: http://www.opensource.org/licenses/MIT
 package com.barrybecker4.experimentation.socket.server
 
-import scala.compiletime.uninitialized
-
 import java.awt._
 import java.awt.event.{WindowAdapter, WindowEvent}
 import com.barrybecker4.ui.components.ScrollingTextArea
@@ -12,31 +10,29 @@ import javax.swing._
   * UI for Server. This must start before the client or you will get an error on the client.
   * @author Barry Becker
   */
-case class ServerFrame(port: Int) extends JFrame {
+case class ServerFrame(port: Int) extends JFrame:
+  // Declared before initUI so the assignment is not overwritten by the field initializer.
+  private val textArea = new ScrollingTextArea(20, 40)
+
   initUI()
   setTitle("Server Program")
 
   addWindowListener(new WindowAdapter() {
-    override def windowClosing(e: WindowEvent): Unit = {
+    override def windowClosing(e: WindowEvent): Unit =
       System.exit(0)
-    }
   })
 
   setLocation(100, 120)
   pack()
   setVisible(true)
 
-  private var textArea: ScrollingTextArea = uninitialized
   val server = new Server(textArea, port)
 
-  private def initUI(): Unit = {
+  private def initUI(): Unit =
     val panel = new JPanel
     val label = new JLabel("Text received from client over socket:")
-    textArea = new ScrollingTextArea(20, 40)
     panel.setLayout(new BorderLayout)
     panel.setBackground(Color.white)
     panel.add("North", label)
     panel.add("Center", textArea)
     getContentPane.add(panel)
-  }
-}
