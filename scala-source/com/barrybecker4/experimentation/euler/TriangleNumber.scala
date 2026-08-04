@@ -16,26 +16,26 @@ object TriangleNumber:
   *                     For example, 5 will be 1 + 2 + 3 + 4 + 5 =  15, the 5th triangle number
   * @author Barry Becker
   */
-class TriangleNumber(var relPrime: Long) {
+class TriangleNumber(val relPrime: Long):
 
   /** cached number of factors */
   private var numFactors: Option[Int] = None
 
   def getValue: Long = relPrime * (relPrime + 1) / 2
 
-  def getNumFactors: Int = {
-    if (numFactors.isEmpty)
-      numFactors = Some(getNumFactors(getValue))
-    numFactors.get
-  }
+  def getNumFactors: Int =
+    numFactors match
+      case Some(n) => n
+      case None =>
+        val n = countFactors(getValue)
+        numFactors = Some(n)
+        n
 
-  private def getNumFactors(num: Long) = {
+  private def countFactors(num: Long): Int =
     var nod = 0
     val sqrt = Math.sqrt(num.toDouble).toInt
-    for (i <- 1 to sqrt)
-      if (num % i == 0) nod += 2
+    for i <- 1 to sqrt do
+      if num % i == 0 then nod += 2
 
     // Correction if the number is a perfect square
-    if (sqrt * sqrt == num) nod - 1 else nod
-  }
-}
+    if sqrt * sqrt == num then nod - 1 else nod
