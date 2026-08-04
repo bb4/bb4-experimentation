@@ -30,8 +30,6 @@
  */
 package com.barrybecker4.experimentation.linebreaks
 
-import scala.compiletime.uninitialized
-
 import java.awt.{Graphics, Graphics2D}
 import java.awt.font.LineBreakMeasurer
 import java.text.AttributedString
@@ -41,10 +39,10 @@ import java.text.AttributedString
   * Demonstrates how to line-break and draw a paragraph
   * of text using LineBreakMeasurer and TextLayout.
   */
-class LineBreakRenderer(textAttribute: AttributedString) {
+class LineBreakRenderer(textAttribute: AttributedString):
 
   // The LineBreakMeasurer used to line-break the paragraph.
-  private var lineMeasurer: LineBreakMeasurer = uninitialized
+  private var lineMeasurer: Option[LineBreakMeasurer] = None
 
   // index of the first character in the paragraph.
   private var paragraphStart = 0
@@ -58,34 +56,33 @@ class LineBreakRenderer(textAttribute: AttributedString) {
     * the specified width.
     * @param width width that the text must be displayed in.
     */
-  def render(g: Graphics, width: Int): Unit = {
-
+  def render(g: Graphics, width: Int): Unit =
     val g2d = g.asInstanceOf[Graphics2D]
 
-    if (lineMeasurer == null) {
-      val paragraph = textAttribute.getIterator
-      paragraphStart = paragraph.getBeginIndex
-      paragraphEnd = paragraph.getEndIndex
-      val frc = g2d.getFontRenderContext
-      lineMeasurer = new LineBreakMeasurer(paragraph, frc)
-    }
+    val measurer = lineMeasurer match
+      case Some(m) => m
+      case None =>
+        val paragraph = textAttribute.getIterator
+        paragraphStart = paragraph.getBeginIndex
+        paragraphEnd = paragraph.getEndIndex
+        val frc = g2d.getFontRenderContext
+        val m = new LineBreakMeasurer(paragraph, frc)
+        lineMeasurer = Some(m)
+        m
 
     val breakWidth = width.toFloat
     var drawPosY: Float = 0
-    lineMeasurer.setPosition(paragraphStart)
+    measurer.setPosition(paragraphStart)
 
     // Get lines until the entire paragraph has been displayed.
-    while (lineMeasurer.getPosition < paragraphEnd) {
+    while measurer.getPosition < paragraphEnd do
       // Retrieve next layout. Consider caching these layouts until the component is re-sized.
-      val layout = lineMeasurer.nextLayout(breakWidth)
+      val layout = measurer.nextLayout(breakWidth)
       // Compute pen x position. If the paragraph is right-to-left, align the TextLayouts
       // to the right edge of the panel.
       // Note: this won't occur for the English text in this sample.
       // Note: drawPosX is always where the LEFT of the text is placed.
-      val drawPosX = if (layout.isLeftToRight) 0 else breakWidth - layout.getAdvance
+      val drawPosX = if layout.isLeftToRight then 0 else breakWidth - layout.getAdvance
       drawPosY += layout.getAscent
       layout.draw(g2d, drawPosX, drawPosY)
       drawPosY += layout.getDescent + layout.getLeading
-    }
-  }
-}
