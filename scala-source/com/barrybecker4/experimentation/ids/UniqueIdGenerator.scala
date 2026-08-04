@@ -31,18 +31,18 @@ object UniqueIdGenerator:
     val idNum = getRandomNumber(NUM_DIGITS_IN_ID)
     if idSet.contains(idNum) then idSet
     else
-      val numLeadingZeros = NUM_DIGITS_IN_ID - Math.ceil(Math.log(idNum.toDouble + 1) / LOG10).toInt
-      var id = idNum.toString
-      var i = 0
-      while i < numLeadingZeros do
-        id = "0" + id
-        i += 1
-      val formatted = if USE_DASHES then addDashes(id) else id
+      val formatted = formatId(idNum, NUM_DIGITS_IN_ID, USE_DASHES)
       println(formatted)
       idSet + idNum
 
-  private def addDashes(id: String): String =
-    val numDashes = (NUM_DIGITS_IN_ID - 1) / DASH_INTERVAL
+  /** Package-visible for tests: pad and optionally dash an id number. */
+  private[ids] def formatId(idNum: Long, numDigits: Int, useDashes: Boolean): String =
+    val numLeadingZeros = numDigits - Math.ceil(Math.log(idNum.toDouble + 1) / LOG10).toInt
+    val padded = "0" * numLeadingZeros + idNum.toString
+    if useDashes then addDashes(padded, numDigits) else padded
+
+  private[ids] def addDashes(id: String, numDigits: Int = NUM_DIGITS_IN_ID): String =
+    val numDashes = (numDigits - 1) / DASH_INTERVAL
     var j = numDashes
     var newId = id
     while j > 0 do
@@ -52,5 +52,5 @@ object UniqueIdGenerator:
     newId
 
   /** @return a number between 1 and pow(10, NUM_DIGITS)-1 */
-  private def getRandomNumber(numDigits: Int): Long =
-    Math.floor((Math.pow(10, numDigits) - 1.0) * RANDOM.nextDouble).toLong + 1
+  private[ids] def getRandomNumber(numDigits: Int, random: Random = RANDOM): Long =
+    Math.floor((Math.pow(10, numDigits) - 1.0) * random.nextDouble).toLong + 1
