@@ -76,15 +76,6 @@ tasks.register('runNativeRender', JavaExec) {
     jvmArgs = ['-ea']
 }
 
-tasks.register('runXMLViewer', JavaExec) {
-    dependsOn classes
-    standardInput = System.in
-    group = 'application'
-    mainClass = 'com.barrybecker4.ui.xmlviewer.DomEcho'
-    classpath = sourceSets.main.runtimeClasspath
-    args = ['scala-source/com/barrybecker4/experimentation/yugioh/yugiohCards.xml']
-}
-
 tasks.register('runLineBreaks', JavaExec) {
     dependsOn classes
     group = 'application'
